@@ -1,6 +1,7 @@
 {
   "name": "MinCaltrain",
   "version": "0.0.1",
+  "description": "A minimalistic CalTrain app",
   "repository": {
     "type": "git",
     "url": "https://github.com/pcottle/MinCalTrain"
@@ -11,6 +12,7 @@
   "dependencies": {
     "react-native": "^0.4.4",
     "object-assign": "^2.0.0",
+    "events": "^1.0.2",
     "flux": "^2.0.1"
   }
 }

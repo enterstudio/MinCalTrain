@@ -23,6 +23,6 @@ module.exports = {
 
   PayloadSources: keyMirror({
     VIEW_ACTION: null,
-    URI_ACTION: null
+    SERVER_ACTION: null
   })
 };
