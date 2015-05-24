@@ -12,7 +12,6 @@ var {
 
 var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
-var ArrivalSelectView = require('../views/ArrivalSelectView');
 
 var INITIAL_ROUTE = Routes.SELECT_DEPARTURE;
 
@@ -21,9 +20,7 @@ var MinCalTrain = React.createClass({
   _renderScene: function(route, navigator) {
     switch (route.id) {
       case Routes.SELECT_DEPARTURE:
-        return <DepartureSelectView navigator={navigator} />;
-      case Routes.SELECT_ARRIVAL:
-        return <ArrivalSelectView navigator={navigator} />;
+        return <SequenceSelectView navigator={navigator} />;
     }
     throw new Error('No route found for ' + route.id);
   },
