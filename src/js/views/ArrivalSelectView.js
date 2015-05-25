@@ -70,16 +70,12 @@ var styles = StyleSheet.create({
   departingContainer: {
     backgroundColor: Colors.DEEPER,
     padding: 12,
-    paddingTop: 6,
-    paddingBottom: 6,
+    paddingTop: 12,
+    paddingBottom: 12
   },
   departingText: {
-    fontSize: 8,
-    color: '#444'
-  },
-  departingText: {
-    fontSize: 8,
-    color: '#444'
+    fontSize: 12,
+    color: '#DDD'
   },
   emojiText: {
     fontSize: 20,
