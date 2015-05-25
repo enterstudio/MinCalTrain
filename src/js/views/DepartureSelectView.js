@@ -18,8 +18,6 @@ var StationSelectView = require('../views/StationSelectView');
 var TripActions = require('../actions/TripActions');
 var TripStore = require('../stores/TripStore');
 
-var AppStyles = require('../constants/AppStyles');
-
 var DepartureSelectView = React.createClass({
 
   propTypes: {
@@ -34,7 +32,7 @@ var DepartureSelectView = React.createClass({
           <Text style={styles.callToActionText}>
             Departing from?
           </Text>
-          <Text style={AppStyles.stationSelectEmojiText}>
+          <Text style={styles.emojiText}>
             {Emoji.TRAIN}
             {Emoji.RIGHT_ARROW}
           </Text>
@@ -54,6 +52,12 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  emojiText: {
+    fontSize: 20,
+    position: 'absolute',
+    right: 10,
+    top: 6
+  },
   callToAction: {
     backgroundColor: Colors.DEEPER,
     padding: 12,

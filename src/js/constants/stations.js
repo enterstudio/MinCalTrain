@@ -156,9 +156,12 @@ var stationOrder = [
   'san-jose'
 ];
 
-// Add the slug to each
+var STATIONS_BY_ID = {};
+// Add the slug to each and key by ID
 Object.keys(STATIONS_BY_SLUG).forEach(function(slug) {
-  STATIONS_BY_SLUG[slug].slug = slug;
+  var station = STATIONS_BY_SLUG[slug];
+  station.slug = slug;
+  STATIONS_BY_ID[station.id] = station;
 });
 
 var STATIONS = [];
@@ -166,4 +169,12 @@ stationOrder.forEach(function(stationSlug) {
   STATIONS.push(STATIONS_BY_SLUG[stationSlug]);
 });
 
-module.exports = STATIONS;
+module.exports = {
+  getAllStations: function() {
+    return STATIONS.slice(0);
+  },
+
+  getStationName: function(id) {
+    return STATIONS_BY_ID[id].name;
+  },
+};

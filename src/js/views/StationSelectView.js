@@ -23,7 +23,7 @@ var StationSelectView = React.createClass({
     return (
       <ScrollView style={styles.container}>
         <View style={styles.stationContainer}>
-          {Stations.map(
+          {Stations.getAllStations().map(
             (station) => this.renderStationSelector(station),
           )}
         </View>

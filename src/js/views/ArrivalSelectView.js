@@ -17,6 +17,7 @@ var Routes = require('../constants/Routes');
 var StationSelectView = require('../views/StationSelectView');
 var TripActions = require('../actions/TripActions');
 var TripStore = require('../stores/TripStore');
+var Stations = require('../constants/Stations');
 
 var ArrivalSelectView = React.createClass({
 
@@ -28,6 +29,9 @@ var ArrivalSelectView = React.createClass({
     return (
       <View>
         <HeaderSpacer />
+        <View style={styles.departingContainer}>
+          {this.renderDeparting()}
+        </View>
         <View style={styles.callToAction}>
           <Text style={styles.callToActionText}>
             Arriving to?
@@ -50,18 +54,44 @@ var ArrivalSelectView = React.createClass({
     );
   },
 
+  renderDeparting: function() {
+    var departureID = TripStore.getDepartureStationID();
+    return (
+      <Text style={styles.departingText}>
+        Sweet, you{"'"}re leaving from
+        {' ' + Stations.getStationName(departureID)}
+      </Text>
+    );
+  },
+
 });
 
 var styles = StyleSheet.create({
+  departingContainer: {
+    backgroundColor: Colors.DEEPER,
+    padding: 12,
+    paddingTop: 6,
+    paddingBottom: 6,
+  },
+  departingText: {
+    fontSize: 8,
+    color: '#444'
+  },
+  departingText: {
+    fontSize: 8,
+    color: '#444'
+  },
   emojiText: {
     fontSize: 20,
     position: 'absolute',
     right: 10,
-    top: 6
+    top: -6
   },
   callToAction: {
     backgroundColor: Colors.DEEPER,
     padding: 12,
+    flex: 1,
+    paddingTop: 0,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
