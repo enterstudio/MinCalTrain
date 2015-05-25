@@ -4,12 +4,19 @@ var {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View,
 } = React;
 
+var AppViews = require('../views/AppViews');
+var {
+  HeaderSpacer,
+} = AppViews;
+var Colors = require('../constants/Colors');
+var Emoji = require('../constants/Emoji');
 var Routes = require('../constants/Routes');
-var Stations = require('../constants/Stations');
+var StationSelectView = require('../views/StationSelectView');
+var TripActions = require('../actions/TripActions');
+var TripStore = require('../stores/TripStore');
 
 var ArrivalSelectView = React.createClass({
 
@@ -19,63 +26,47 @@ var ArrivalSelectView = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.background}>
-        <ScrollView style={styles.container}>
-          <View style={styles.headerSpacer} />
-          <View style={styles.stationContainer}>
-            {Stations.map(
-              (station) => this.renderStationSelector(station),
-            )}
-          </View>
-        </ScrollView>
-      </View>
-    );
-  },
-
-  renderStationSelector: function(station) {
-    return (
-      <TouchableHighlight
-        key={station.id}
-        onPress={() => {
-          // TODO -- flux dispatch
-          this.props.navigator.push(
-            Routes.getRouteForID(Routes.TIME)
-          );
-        }}
-        underlayColor="#6E6E6E">
-        <View>
-          <View style={styles.textContainer}>
-            <Text>
-              {station.name}
-            </Text>
-          </View>
-          <View style={styles.divider} />
+      <View>
+        <HeaderSpacer />
+        <View style={styles.callToAction}>
+          <Text style={styles.callToActionText}>
+            Arriving to?
+          </Text>
+          <Text style={styles.emojiText}>
+            {Emoji.LOVE_HOTEL}
+            {Emoji.END}
+          </Text>
         </View>
-      </TouchableHighlight>
+        <StationSelectView
+          omitStation={TripStore.getDepartureStationID()}
+          onStationSelect={(stationID) => {
+            TripActions.selectArrival(stationID);
+            this.props.navigator.push(
+              Routes.getRouteForID(Routes.TIMES)
+            );
+          }}
+        />
+      </View>
     );
   },
 
 });
 
 var styles = StyleSheet.create({
-  divider: {
-    height: 1,
-    marginBottom: 8,
-    backgroundColor: '#FFF'
+  emojiText: {
+    fontSize: 20,
+    position: 'absolute',
+    right: 10,
+    top: 6
   },
-  terminalContainer: {
-    paddingTop: 8,
-    paddingBottom: 8,
+  callToAction: {
+    backgroundColor: Colors.DEEPER,
+    padding: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-  textContainer: {
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
-  container: {
-    padding: 8,
-  },
-  headerSpacer: {
-    height: 24,
+  callToActionText: {
+    color: '#111'
   },
 });
 

@@ -16,6 +16,7 @@ var StationSelectView = React.createClass({
 
   propTypes: {
     onStationSelect: React.PropTypes.func.isRequired,
+    omitStation: React.PropTypes.string,
   },
 
   render: function() {
@@ -31,10 +32,15 @@ var StationSelectView = React.createClass({
   },
 
   renderStationSelector: function(station) {
+    if (this.props.omitStation &&
+        station.id === this.props.omitStation) {
+      return null;
+    }
+
     return (
       <TouchableHighlight
         key={station.id}
-        onPress={this.props.onStationSelect}
+        onPress={this.props.onStationSelect.bind(this, station.id)}
         underlayColor={Colors.LIOHUA}>
         <View>
           <View style={styles.textContainer}>
@@ -70,14 +76,6 @@ var styles = StyleSheet.create({
   },
   container: {
     backgroundColor: Colors.GREY,
-  },
-  headerSpacer: {
-    backgroundColor: Colors.SHE_DRESSED_ME,
-    height: 22,
-  },
-  scrollSpacer: {
-    height: 184,
-    flex: 1
   },
 });
 

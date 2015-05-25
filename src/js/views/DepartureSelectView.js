@@ -7,9 +7,18 @@ var {
   View,
 } = React;
 
+var AppViews = require('../views/AppViews');
+var Emoji = require('../constants/Emoji');
+var {
+  HeaderSpacer,
+} = AppViews;
 var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var StationSelectView = require('../views/StationSelectView');
+var TripActions = require('../actions/TripActions');
+var TripStore = require('../stores/TripStore');
+
+var AppStyles = require('../constants/AppStyles');
 
 var DepartureSelectView = React.createClass({
 
@@ -20,15 +29,19 @@ var DepartureSelectView = React.createClass({
   render: function() {
     return (
       <View>
-        <View style={styles.headerSpacer} />
+        <HeaderSpacer />
         <View style={styles.callToAction}>
           <Text style={styles.callToActionText}>
             Departing from?
           </Text>
+          <Text style={AppStyles.stationSelectEmojiText}>
+            {Emoji.TRAIN}
+            {Emoji.RIGHT_ARROW}
+          </Text>
         </View>
         <StationSelectView
-          onStationSelect={() => {
-            // TODO -- flux dispatch
+          onStationSelect={(stationID) => {
+            TripActions.selectDeparture(stationID);
             this.props.navigator.push(
               Routes.getRouteForID(Routes.SELECT_ARRIVAL)
             );
@@ -44,15 +57,12 @@ var styles = StyleSheet.create({
   callToAction: {
     backgroundColor: Colors.DEEPER,
     padding: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   callToActionText: {
     color: '#111'
   },
-  headerSpacer: {
-    backgroundColor: Colors.SHE_DRESSED_ME,
-    height: 22,
-  },
 });
-
 
 module.exports = DepartureSelectView;
