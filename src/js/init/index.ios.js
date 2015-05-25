@@ -1,7 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
@@ -13,6 +9,7 @@ var {
 var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
 var ArrivalSelectView = require('../views/ArrivalSelectView');
+var TimesView = require('../views/TimesView');
 
 var INITIAL_ROUTE = Routes.SELECT_DEPARTURE;
 
@@ -24,6 +21,8 @@ var MinCalTrain = React.createClass({
         return <DepartureSelectView navigator={navigator} />;
       case Routes.SELECT_ARRIVAL:
         return <ArrivalSelectView navigator={navigator} />;
+      case Routes.TIMES:
+        return <TimesView navigator={navigator} />;
     }
     throw new Error('No route found for ' + route.id);
   },

@@ -7,7 +7,6 @@ var ActionTypes = AppConstants.ActionTypes;
 
 var TripActions = {
   selectDeparture: function(stationID) {
-    console.log('dispatching this', stationID);
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_DEPARTURE,
       stationID: stationID

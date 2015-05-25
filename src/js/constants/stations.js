@@ -174,6 +174,10 @@ module.exports = {
     return STATIONS.slice(0);
   },
 
+  getStationSlugFromID: function(id) {
+    return STATIONS_BY_ID[id].slug;
+  },
+
   getStationName: function(id) {
     return STATIONS_BY_ID[id].name;
   },
