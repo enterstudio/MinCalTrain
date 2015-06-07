@@ -1,134 +1,122 @@
 var STATIONS_BY_ID = {
-  "belmont": {
-    "appID": "2e20cf1b-95b1-3604-bec2-efc46e07cddf",
-    "name": "Belmont",
+  'belmont': {
+    name: 'Belmont'
   },
-  "morgan-hill": {
-    "appID": "4c8b1363-1eb3-375d-b503-b96f68430fca",
-    "name": "Morgan Hill",
+  'morgan-hill': {
+    name: 'Morgan Hill'
   },
-  "atherton": {
-    "appID": "acac942d-d06d-383c-8c06-c01c4f53c95e",
-    "name": "Atherton",
+  'atherton': {
+    name: 'Atherton'
   },
-  "gilroy": {
-    "appID": "fcded072-9e49-3665-9941-86d655030dcf",
-    "name": "Gilroy",
+  'gilroy': {
+    name: 'Gilroy'
   },
-  "22nd-street": {
-    "appID": "47abeb4f-26c2-3c69-9cd0-c06bdca162aa",
-    "name": "22nd Street",
+  '22nd-street': {
+    name: '22nd Street'
   },
-  "capitol": {
-    "appID": "6a545975-3ecc-3b87-817d-0b079a934e04",
-    "name": "Capitol",
+  'capitol': {
+    name: 'Capitol'
   },
-  "sunnyvale": {
-    "appID": "760ec2a3-4eb0-3073-aa08-1990d6cfd318",
-    "name": "Sunnyvale",
+  'sunnyvale': {
+    name: 'Sunnyvale'
   },
-  "santa-clara": {
-    "appID": "9237a211-1665-3d57-8cb4-3189754fa533",
-    "name": "Santa Clara",
+  'santa-clara': {
+    name: 'Santa Clara'
   },
-  "mountain-view": {
-    "appID": "dfc2e118-6c85-3f22-b47e-569d62bc5953",
-    "name": "Mountain View",
+  'mountain-view': {
+    name: 'Mountain View'
   },
-  "san-carlos": {
-    "appID": "f0007e3b-e4ec-3ec3-8dfd-ecc5c035a66d",
-    "name": "San Carlos",
+  'san-carlos': {
+    name: 'San Carlos'
   },
-  "san-martin": {
-    "appID": "393ff776-3c69-3c92-8224-07b74d07a5e6",
-    "name": "San Martin",
+  'san-martin': {
+    name: 'San Martin'
   },
-  "hayward-park": {
-    "appID": "5b9be18d-0bd2-3fc0-9324-74e9cbd796bc",
-    "name": "Hayward Park",
+  'hayward-park': {
+    name: 'Hayward Park'
   },
-  "blossom-hill": {
-    "appID": "7e537789-ffb0-35ff-87a7-7fc45d65beae",
-    "name": "Blossom Hill",
+  'blossom-hill': {
+    name: 'Blossom Hill'
   },
-  "so-san-francisco": {
-    "appID": "250ac8b7-41a4-35c5-ac48-3f43d838d08f",
-    "name": "So. San Francisco",
+  'so-san-francisco': {
+    name: 'So. San Francisco'
   },
-  "millbrae": {
-    "appID": "969184ba-4312-31fb-9cee-2a3e56cdef1b",
-    "name": "Millbrae",
+  'millbrae': {
+    name: 'Millbrae'
   },
-  "san-bruno": {
-    "appID": "5341cb65-9f55-3d05-bcf0-a9e70810f027",
-    "name": "San Bruno",
+  'san-bruno': {
+    name: 'San Bruno'
   },
-  "san-francisco": {
-    "appID": "535db153-2743-3375-9c51-49c5ea4afee1",
-    "name": "San Francisco",
+  'san-francisco': {
+    name: 'San Francisco'
   },
-  "san-jose": {
-    "appID": "7a0be019-1c54-360b-a995-9561aad49a81",
-    "name": "San Jose",
+  'san-jose': {
+    name: 'San Jose'
   },
-  "palo-alto": {
-    "appID": "9236cff1-b0bc-320d-aeeb-9f6793a0b973",
-    "name": "Palo Alto",
+  'palo-alto': {
+    name: 'Palo Alto'
   },
-  "tamien": {
-    "appID": "c27b13e9-558e-3d01-9abc-96ac1d2fb866",
-    "name": "Tamien",
+  'tamien': {
+    name: 'Tamien'
   },
-  "california-ave": {
-    "appID": "c4770033-f771-37b0-ab63-688dccb4125a",
-    "name": "California Ave",
+  'california-ave': {
+    name: 'California Ave'
   },
-  "san-mateo": {
-    "appID": "c35b46ca-3f1e-3039-bb15-b30ce3fb5125",
-    "name": "San Mateo",
+  'san-mateo': {
+    name: 'San Mateo'
   },
-  "burlingame": {
-    "appID": "7607692e-1aab-3b1b-9358-3d6837f3ae55",
-    "name": "Burlingame",
+  'burlingame': {
+    name: 'Burlingame'
   },
-  "san-antonio": {
-    "appID": "7e157b4e-4301-3af1-be49-d3b02340f351",
-    "name": "San Antonio",
+  'san-antonio': {
+    name: 'San Antonio'
   },
-  "broadway": {
-    "appID": "960d701c-b0f7-3372-9b64-23b44ac88396",
-    "name": "Broadway",
+  'broadway': {
+    name: 'Broadway'
   },
-  "college-park": {
-    "appID": "9b67234d-57b1-38a1-9857-eeec6fa64d0f",
-    "name": "College Park",
+  'college-park': {
+    name: 'College Park'
   },
-  "menlo-park": {
-    "appID": "abffb3b7-7130-3f25-97f4-0e6d7edb6ec6",
-    "name": "Menlo Park",
+  'menlo-park': {
+    name: 'Menlo Park'
   },
-  "lawrence": {
-    "appID": "e6fe1c4d-266c-38de-8abe-b28eca6eca07",
-    "name": "Lawrence",
+  'lawrence': {
+    name: 'Lawrence'
   },
-  "bayshore": {
-    "appID": "f3de2d1a-cabb-35c2-9288-e6a50093792c",
-    "name": "Bayshore",
+  'bayshore': {
+    name: 'Bayshore'
   },
-  "hillsdale": {
-    "appID": "50e60126-385c-36b9-835a-ce2c1f44988e",
-    "name": "Hillsdale",
+  'hillsdale': {
+    name: 'Hillsdale'
   },
-  "redwood-city": {
-    "appID": "a829a204-7d91-34a6-a160-7c25f6d6250d",
-    "name": "Redwood City",
+  'redwood-city': {
+    name: 'Redwood City'
   },
-  "san-jose-diridon": {
-    "appID": "ef6bc96e-6d0f-3a65-b78a-7ee7dd5c36d5",
-    "name": "San Jose Diridon",
-  }
+  'san-jose-diridon': {
+    name: 'San Jose Diridon'
+  },
+  'tamien': {
+    name: 'Tamien'
+  },
+  'capitol': {
+    name: 'Capitol'
+  },
+  'blossom-hill': {
+    name: 'Blossom Hill'
+  },
+  'morgan-hill': {
+    name: 'Morgan Hill'
+  },
+  'san-martin': {
+    name: 'San Martin'
+  },
+  'gilroy': {
+    name: 'Gilroy'
+  },
 };
 
+// TODO -- only display the right
+// stations for the right day....
 var stationOrder = [
   'san-francisco',
   '22nd-street',
@@ -153,7 +141,15 @@ var stationOrder = [
   'sunnyvale',
   'lawrence',
   'santa-clara',
-  'san-jose'
+  'san-jose',
+  'college-park',
+  'san-jose-diridon',
+  'tamien',
+  'capitol',
+  'blossom-hill',
+  'morgan-hill',
+  'san-martin',
+  'gilroy'
 ];
 
 // Add the slug to each and key by ID
