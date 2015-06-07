@@ -1,4 +1,7 @@
 var Stations = require('../constants/Stations');
+var Directions = require('../constants/Directions');
+
+var STATIONS_BY_ID = Stations.__getStationsByID();
 
 var WeekdayNorthbound =
   require('../time_tables/WeekdayNorthbound');
@@ -45,6 +48,19 @@ function _getDateForTimeString(date, timeString) {
   return result;
 }
 
+function _getDirectionForStops(stopOneID, stopTwoID) {
+  if (stopOneID === stopTwoID) {
+    throw new Error('Cant use same stop IDs');
+  }
+  if (
+    STATIONS_BY_ID[stopTwoID].northBoundIndex >
+    STATIONS_BY_ID[stopOneID].northBoundIndex
+  ) {
+    return Directions.NORTH_BOUND;
+  }
+  return Directions.SOUTH_BOUND;
+}
+
 var TimeTables = {
   getScheduleForDay: function(date) {
     var day = date.getDay();
@@ -61,7 +77,7 @@ var TimeTables = {
     };
   },
 
-  getDateForTimeString: _getDateForTimeString,
+  _getDateForTimeString: _getDateForTimeString,
 
 };
 

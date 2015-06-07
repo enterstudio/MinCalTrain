@@ -58,14 +58,14 @@ describe('time tables', function() {
     _trainLoop(function(train) {
       var firstStopID = Object.keys(train.stops)[0];
       var now = new Date();
-      var currentTime = TimeTables.getDateForTimeString(
+      var currentTime = TimeTables._getDateForTimeString(
         now,
         train.stops[firstStopID]
       );
       currentTime.setSeconds(-1); // decrement for loop
 
       Object.keys(train.stops).forEach(function(stopID) {
-        var thisStopTime = TimeTables.getDateForTimeString(
+        var thisStopTime = TimeTables._getDateForTimeString(
           now,
           train.stops[stopID]
         );

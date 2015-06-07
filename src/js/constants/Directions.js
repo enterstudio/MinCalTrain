@@ -1,7 +1,7 @@
 var keyMirror = require('../util/keyMirror');
 
 var DIRECTIONS = keyMirror({
-  NORTHBOUND: null,
-  SOUTHBOUND: null,
+  NORTH_BOUND: null,
+  SOUTH_BOUND: null,
 });
 module.exports = DIRECTIONS;

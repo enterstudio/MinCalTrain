@@ -15,7 +15,7 @@ describe('Stations', function() {
       .toBe(Object.keys(stationsByID).length);
   });
 
-  it('has northbound and southbound indexes', function() {
+  it('has northBound and southBound indexes', function() {
 
     var currentNorth = Stations.getAllStations().length;
     var currentSouth = -1;
