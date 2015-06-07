@@ -1,4 +1,4 @@
-var TrainTypes = require('../constants/TrainTypes');
+var baseProcess = require('../time_tables/baseProcess');
 
 var TIMES = [{
 
@@ -970,9 +970,13 @@ var TIMES = [{
     'so-san-francisco': '11:43pm',
     'bayshore': '11:49pm',
     '22nd-street': '11:54pm',
-    'san-francisco': '+12:03pm',
+    'san-francisco': '+12:03am',
   },
 
 }];
+
+TIMES.forEach(function(train) {
+  baseProcess.addType(train);
+});
 
 module.exports = TIMES;
