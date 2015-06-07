@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       ]
     },
     jasmine_node: {
-      projectRoot: './src/js/__tests__/',
+      specs: './src/js/__tests__/*.spec.js',
       forceExit: true,
       verbose: true
     },

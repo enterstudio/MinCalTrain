@@ -152,7 +152,7 @@ var stationOrder = [
   'gilroy'
 ];
 
-// Add the slug to each and key by ID
+// Add the id to each
 Object.keys(STATIONS_BY_ID).forEach(function(id) {
   var station = STATIONS_BY_ID[id];
   station.id = id;
@@ -170,5 +170,9 @@ module.exports = {
 
   getStationName: function(id) {
     return STATIONS_BY_ID[id].name;
+  },
+
+  __getStationsByID: function() {
+    return STATIONS_BY_ID;
   },
 };
