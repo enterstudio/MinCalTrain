@@ -7,7 +7,7 @@ var Schedules = [
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
 
-var trainLoop = function(callback) {
+var _trainLoop = function(callback) {
   Schedules.forEach(function(schedule) {
     schedule.forEach(function(train) {
       callback(train);
@@ -15,17 +15,27 @@ var trainLoop = function(callback) {
   });
 };
 
-var stopLoop = function(callback) {
-  trainLoop(function(train) {
+var _stopLoop = function(callback) {
+  _trainLoop(function(train) {
     Object.keys(train.stops).forEach(function(stationID) {
       callback(stationID, train.stops[stationID]);
     });
   });
 };
 
+var _getDateForDay = function(day) {
+  var date = new Date();
+  // Hack -- get our desired day by just adding
+  // 1 to the date
+  while (date.getDay() !== day) {
+    date.setDate(date.getDate() + 1);
+  }
+  return date;
+};
+
 describe('time tables', function() {
   it('each has an ID and type', function() {
-    trainLoop(function(train) {
+    _trainLoop(function(train) {
 
       expect(train.id)
         .toBeTruthy();
@@ -38,21 +48,43 @@ describe('time tables', function() {
   });
 
   it('each stop is a valid station', function() {
-    stopLoop(function(stationID, time) {
+    _stopLoop(function(stationID, timeString) {
       expect(STATIONS_BY_ID[stationID])
         .toBeTruthy('StationID ' + stationID + ' should exist');
     });
   });
 
-  it('has a schedule for all days', function() {
-    var date = new Date();
-    for (var day = 0; day < 6; day++) {
-      // Hack -- get our desired day by just adding
-      // 1 to the date
-      while (date.getDay() !== day) {
-        date.setDate(date.getDate() + 1);
-      }
+  it('the times progress monotonically', function() {
+    _trainLoop(function(train) {
+      var firstStopID = Object.keys(train.stops)[0];
+      var now = new Date();
+      var currentTime = TimeTables.getDateForTimeString(
+        now,
+        train.stops[firstStopID]
+      );
+      currentTime.setSeconds(-1); // decrement for loop
 
+      Object.keys(train.stops).forEach(function(stopID) {
+        var thisStopTime = TimeTables.getDateForTimeString(
+          now,
+          train.stops[stopID]
+        );
+        expect(thisStopTime.getTime())
+          .toBeGreaterThan(
+            currentTime.getTime(),
+            'Expected ' + thisStopTime.toString() +
+              'to be later than ' + currentTime.toString() +
+              'for stopID ' + stopID + ' and train ' + train.id
+          );
+        currentTime = thisStopTime;
+      });
+
+    });
+  });
+
+  it('has a schedule for all days', function() {
+    for (var day = 0; day < 6; day++) {
+      var date = _getDateForDay(day);
       if (day === 0 || day === 1) {
         expect(function() {
           TimeTables.getScheduleForDay(date);

@@ -15,4 +15,25 @@ describe('Stations', function() {
       .toBe(Object.keys(stationsByID).length);
   });
 
+  it('has northbound and southbound indexes', function() {
+
+    var currentNorth = Stations.getAllStations().length;
+    var currentSouth = -1;
+    Stations.getAllStations().forEach(function(station) {
+      expect(station.northBoundIndex !== undefined)
+        .toBe(true);
+      expect(station.southBoundIndex !== undefined)
+        .toBe(true);
+
+      expect(station.northBoundIndex < currentNorth)
+        .toBe(true);
+      currentNorth = station.northBoundIndex;
+
+      expect(station.southBoundIndex > currentSouth)
+        .toBe(true);
+      currentSouth = station.southBoundIndex;
+
+    });
+  });
+
 });

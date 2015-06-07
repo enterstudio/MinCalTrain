@@ -159,7 +159,10 @@ Object.keys(STATIONS_BY_ID).forEach(function(id) {
 });
 
 var STATIONS = [];
-stationOrder.forEach(function(id) {
+stationOrder.forEach(function(id, southBoundIndex) {
+  STATIONS_BY_ID[id].southBoundIndex = southBoundIndex;
+  STATIONS_BY_ID[id].northBoundIndex = 
+    stationOrder.length - southBoundIndex - 1;
   STATIONS.push(STATIONS_BY_ID[id]);
 });
 
