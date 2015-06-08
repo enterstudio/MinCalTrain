@@ -77,7 +77,11 @@ var TimeTables = {
     };
   },
 
+  /**
+   * Not really public, only for testing
+   */
   _getDateForTimeString: _getDateForTimeString,
+  _getDirectionForStops: _getDirectionForStops,
 
 };
 

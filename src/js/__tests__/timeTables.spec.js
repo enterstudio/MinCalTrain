@@ -1,3 +1,4 @@
+var Directions = require('../constants/Directions');
 var Stations = require('../constants/Stations');
 var TrainTypes = require('../constants/TrainTypes');
 var TimeTables = require('../time_tables/TimeTables');
@@ -95,6 +96,26 @@ describe('time tables', function() {
       expect(TimeTables.getScheduleForDay(date))
         .toBeTruthy();
     }
+  });
+
+  it('can get directions successfully', function() {
+    var dir1 = TimeTables._getDirectionForStops(
+      'palo-alto',
+      '22nd-street'
+    );
+
+    expect(dir1).toEqual(Directions.NORTH_BOUND);
+
+    var dir2 = TimeTables._getDirectionForStops(
+      'sunnyvale',
+      'gilroy'
+    );
+    expect(dir2).toEqual(Directions.SOUTH_BOUND);
+    expect(
+      function() {
+        TimeTables._getDirectionForStops('gilroy', 'gilroy');
+      }
+    ).toThrow();
   });
 
 });
