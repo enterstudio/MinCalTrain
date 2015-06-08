@@ -32,9 +32,24 @@ var StationSelectView = React.createClass({
   },
 
   renderStationSelector: function(station) {
+    var stationView = (
+      <View>
+        <View style={styles.textContainer}>
+          <Text style={styles.stationName}>
+            {station.name}
+          </Text>
+        </View>
+        <View style={styles.divider} />
+      </View>
+    );
+
     if (this.props.omitStation &&
         station.id === this.props.omitStation) {
-      return null;
+      return (
+        <View style={styles.omitStation}>
+          {stationView}
+        </View>
+      );
     }
 
     return (
@@ -42,14 +57,7 @@ var StationSelectView = React.createClass({
         key={station.id}
         onPress={this.props.onStationSelect.bind(this, station.id)}
         underlayColor={Colors.LIOHUA}>
-        <View>
-          <View style={styles.textContainer}>
-            <Text style={styles.stationName}>
-              {station.name}
-            </Text>
-          </View>
-          <View style={styles.divider} />
-        </View>
+        {stationView}
       </TouchableHighlight>
     );
   },
@@ -57,6 +65,10 @@ var StationSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  omitStation: {
+    opacity: 0.5,
+    backgroundColor: '#111'
+  },
   callToAction: {
     backgroundColor: Colors.DEEPER,
     padding: 12,
