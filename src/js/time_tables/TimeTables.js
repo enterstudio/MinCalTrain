@@ -45,6 +45,7 @@ function _getDateForTimeString(date, timeString) {
   result.setHours(hours);
   result.setMinutes(minutes);
   result.setSeconds(0);
+  result.setMilliseconds(0);
   return result;
 }
 
@@ -59,6 +60,38 @@ function _getDirectionForStops(stopOneID, stopTwoID) {
     return Directions.NORTH_BOUND;
   }
   return Directions.SOUTH_BOUND;
+}
+
+function _getOptionsForTrip(date, schedule, stopOneID, stopTwoID) {
+  var options = [];
+  schedule.forEach(function(train) {
+    if (train.stops[stopOneID] === undefined ||
+        train.stops[stopTwoID] === undefined) {
+      // Train doesnt stop at both of these stops
+      return;
+    }
+
+    var timeLeaving = _getDateForTimeString(
+      date,
+      train.stops[stopOneID]
+    );
+    var timeArriving = _getDateForTimeString(
+      date,
+      train.stops[stopTwoID]
+    );
+    if (timeLeaving.getTime() <= date.getTime()) {
+      // Already left
+      return;
+    }
+
+    // Should be an option!
+    options.push({
+      timeLeaving: timeLeaving,
+      timeArriving: timeArriving,
+      train: train,
+    });
+  });
+  return options;
 }
 
 var TimeTables = {
@@ -77,11 +110,32 @@ var TimeTables = {
     };
   },
 
+  getRoutesForTrip: function(date, stopOneID, stopTwoID) {
+    var daySchedule = this.getScheduleForDay(date);
+    var direction = _getDirectionForStops(stopOneID, stopTwoID);
+    var schedule = null;
+    if (direction === Directions.NORTH_BOUND) {
+      schedule = daySchedule.northBound;
+    } else if (direction === Directions.SOUTH_BOUND) {
+      schedule = daySchedule.southBound;
+    } else {
+      throw new Error('unexpected dir ' + direction);
+    }
+
+    return _getOptionsForTrip(
+      date,
+      schedule,
+      stopOneID,
+      stopTwoID
+    );
+  },
+
   /**
    * Not really public, only for testing
    */
   _getDateForTimeString: _getDateForTimeString,
   _getDirectionForStops: _getDirectionForStops,
+  _getOptionsForTrip: _getOptionsForTrip,
 
 };
 

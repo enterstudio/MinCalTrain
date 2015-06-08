@@ -118,4 +118,29 @@ describe('time tables', function() {
     ).toThrow();
   });
 
+  it('can calculate options for a route', function() {
+    var mondayMorning = new Date(1433781124337);
+    var routes = TimeTables.getRoutesForTrip(
+      mondayMorning,
+      'palo-alto',
+      'san-francisco'
+    );
+
+    expect(routes.length).toBe(29);
+    expect(routes[0].timeLeaving.getTime())
+      .toEqual(Date.parse('Mon Jun 08 2015 09:46:00 GMT-0700 (PDT)'));
+    expect(routes[0].timeLeaving.toString())
+      .toEqual('Mon Jun 08 2015 09:46:00 GMT-0700 (PDT)');
+
+    expect(routes[0].timeArriving.toString())
+      .toEqual('Mon Jun 08 2015 10:48:00 GMT-0700 (PDT)');
+
+    lastTrip = routes[routes.length - 1];
+    expect(lastTrip.timeLeaving.toString())
+      .toEqual('Mon Jun 08 2015 23:01:00 GMT-0700 (PDT)');
+    // note that this respects midnight and the next day
+    expect(lastTrip.timeArriving.toString())
+      .toEqual('Tue Jun 09 2015 12:03:00 GMT-0700 (PDT)');
+  });
+
 });
