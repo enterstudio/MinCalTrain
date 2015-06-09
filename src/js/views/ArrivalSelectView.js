@@ -28,7 +28,6 @@ var ArrivalSelectView = React.createClass({
   render: function() {
     return (
       <View>
-        <HeaderSpacer />
         <View style={styles.departingContainer}>
           {this.renderDeparting()}
         </View>

@@ -4,8 +4,11 @@ var React = require('react-native');
 var {
   AppRegistry,
   Navigator,
+  StyleSheet,
+  View,
 } = React;
 
+var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
 var ArrivalSelectView = require('../views/ArrivalSelectView');
@@ -29,13 +32,27 @@ var MinCalTrain = React.createClass({
 
   render: function() {
     return (
-      <Navigator
-        initialRoute={Routes.getRouteForID(INITIAL_ROUTE)}
-        renderScene={this._renderScene}
-      />
+      <View style={styles.background}>
+        <View style={styles.headerSpacer} />
+        <Navigator
+          initialRoute={Routes.getRouteForID(INITIAL_ROUTE)}
+          renderScene={this._renderScene}
+        />
+      </View>
     );
   },
 
+});
+
+var styles = StyleSheet.create({
+  headerSpacer: {
+    height: 20,
+    backgroundColor: Colors.SHE_DRESSED_ME,
+  },
+  background: {
+    backgroundColor: Colors.GREY,
+    flex: 1
+  }
 });
 
 AppRegistry.registerComponent('MinCalTrain', () => MinCalTrain);

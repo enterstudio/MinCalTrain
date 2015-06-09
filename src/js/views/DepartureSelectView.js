@@ -7,11 +7,7 @@ var {
   View,
 } = React;
 
-var AppViews = require('../views/AppViews');
 var Emoji = require('../constants/Emoji');
-var {
-  HeaderSpacer,
-} = AppViews;
 var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var StationSelectView = require('../views/StationSelectView');
@@ -27,7 +23,6 @@ var DepartureSelectView = React.createClass({
   render: function() {
     return (
       <View>
-        <HeaderSpacer />
         <View style={styles.callToAction}>
           <Text style={styles.callToActionText}>
             Departing from?
