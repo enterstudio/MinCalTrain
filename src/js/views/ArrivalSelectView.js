@@ -7,10 +7,6 @@ var {
   View,
 } = React;
 
-var AppViews = require('../views/AppViews');
-var {
-  HeaderSpacer,
-} = AppViews;
 var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
 var Routes = require('../constants/Routes');
