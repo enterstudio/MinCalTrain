@@ -3,7 +3,8 @@ var Stations = require('../constants/Stations');
 var TrainTypes = require('../constants/TrainTypes');
 var TimeTables = require('../time_tables/TimeTables');
 var Schedules = [
-  require('../time_tables/WeekdayNorthbound'),
+  require('../time_tables/WeekdayNorthBound'),
+  // require('../time_tables/WeekdaySouthBound'),
 ];
 
 var STATIONS_BY_ID = Stations.__getStationsByID();

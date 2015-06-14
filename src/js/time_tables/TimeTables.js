@@ -3,8 +3,10 @@ var Directions = require('../constants/Directions');
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
 
-var WeekdayNorthbound =
-  require('../time_tables/WeekdayNorthbound');
+var WeekdayNorthBound =
+  require('../time_tables/WeekdayNorthBound');
+var WeekdaySouthBound =
+  require('../time_tables/WeekdaySouthBound');
 
 function _stripNonDigits(string) {
   return string.replace(/[^0-9]/g, '');
@@ -103,10 +105,9 @@ var TimeTables = {
       throw new Error('Saturday not done yet');
     }
 
-    // TODO add southbound
     return {
-      northBound: WeekdayNorthbound,
-      southBound: null,
+      northBound: WeekdayNorthBound,
+      southBound: WeekdaySouthBound,
     };
   },
 
