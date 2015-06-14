@@ -11,6 +11,7 @@ var {
 var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var Stations = require('../constants/Stations');
+var TimeTables = require('../time_tables/TimeTables');
 
 var StationSelectView = React.createClass({
 
@@ -20,10 +21,14 @@ var StationSelectView = React.createClass({
   },
 
   render: function() {
+    // TODO -- not monday morning
+    var todayStations = TimeTables.getStationsForDay(
+      new Date(1433781124337)
+    );
     return (
       <ScrollView style={styles.container}>
         <View style={styles.stationContainer}>
-          {Stations.getAllStations().map(
+          {todayStations.map(
             (station) => this.renderStationSelector(station),
           )}
         </View>
