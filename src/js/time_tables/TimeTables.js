@@ -8,6 +8,7 @@ var WeekdayNorthBound =
 var WeekdaySouthBound =
   require('../time_tables/WeekdaySouthBound');
 
+var _stopsForDay = {};
 function _stripNonDigits(string) {
   return string.replace(/[^0-9]/g, '');
 }
@@ -35,7 +36,7 @@ function _getDateForTimeString(date, timeString) {
 
   if (_strContains(minutesRaw, 'am') &&
       hours === 12) {
-    // this is considered 0-hour in our land
+    // this is considered 0-hour in date land
     hours = 0;
   }
 
@@ -115,6 +116,43 @@ var TimeTables = {
       northBound: WeekdayNorthBound,
       southBound: WeekdaySouthBound,
     };
+  },
+
+  getStationsForDay: function(date) {
+    var day = date.getDay();
+    if (_stopsForDay[day]) {
+      // Memoize since this isnt exactly cheap...
+      return _stopsForDay[day];
+    }
+
+    // not all stations are stopped at for all days,
+    // so here we loop through and figure out which
+    // stations can actually be selected.
+    //
+    // We omit the trickiness that might arise if
+    // a station is only stopped at in one direction.
+    var seenStations = {};
+    var daySchedule = this.getScheduleForDay(date);
+    // Triple loop so we memoize this
+    Object.keys(daySchedule).forEach(function(scheduleDir) {
+      var schedule = daySchedule[scheduleDir];
+      schedule.forEach(function(train) {
+        Object.keys(train.stops).forEach(function(stationID) {
+          seenStations[stationID] = true;
+        });
+      });
+    });
+
+    var STATIONS = Stations.getAllStations();
+    var result = [];
+    STATIONS.forEach(function(station) {
+      if (seenStations[station.id]) {
+        result.push(station);
+      }
+    });
+
+    _stopsForDay[day] = result;
+    return result;
   },
 
   getRoutesForTrip: function(date, stopOneID, stopTwoID) {

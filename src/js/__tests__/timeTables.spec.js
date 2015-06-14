@@ -8,6 +8,7 @@ var Schedules = [
 ];
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
+var MONDAY_MORNING = 1433781124337;
 
 var _trainLoop = function(callback) {
   Schedules.forEach(function(schedule) {
@@ -85,16 +86,15 @@ describe('time tables', function() {
   });
 
   it('can parse timestrings', function() {
-    var mondayMorning = new Date(1433781124337);
     var time = TimeTables._getDateForTimeString(
-      mondayMorning,
+      new Date(MONDAY_MORNING),
       '+12:59am'
     );
     expect(time.toString())
       .toEqual('Tue Jun 09 2015 00:59:00 GMT-0700 (PDT)');
 
     var time = TimeTables._getDateForTimeString(
-      mondayMorning,
+      new Date(MONDAY_MORNING),
       '+1:10am'
     );
     expect(time.toString())
@@ -137,7 +137,7 @@ describe('time tables', function() {
   });
 
   it('can calculate options for a route', function() {
-    var mondayMorning = new Date(1433781124337);
+    var mondayMorning = new Date(MONDAY_MORNING);
     var routes = TimeTables.getRoutesForTrip(
       mondayMorning,
       'palo-alto',
@@ -156,9 +156,22 @@ describe('time tables', function() {
     lastTrip = routes[routes.length - 1];
     expect(lastTrip.timeLeaving.toString())
       .toEqual('Mon Jun 08 2015 23:01:00 GMT-0700 (PDT)');
-    // note that this respects midnight and the next day
+    // note that this respects midnight and the next day.
+    // It also converts the 12:xxam to 00:xxam
     expect(lastTrip.timeArriving.toString())
       .toEqual('Tue Jun 09 2015 00:03:00 GMT-0700 (PDT)');
   });
 
+  it('can filter stations based on the day', function() {
+    var allStations = Stations.getAllStations();
+
+    var weekdayStations = TimeTables.getStationsForDay(
+      new Date(MONDAY_MORNING)
+    );
+    expect(weekdayStations.length)
+      .toBeLessThan(allStations.length, 'weekday has less stations');
+
+    expect(weekdayStations.length)
+      .toBe(29, 'it has 29 stations');
+  });
 });
