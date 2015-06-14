@@ -115,8 +115,6 @@ var STATIONS_BY_ID = {
   },
 };
 
-// TODO -- only display the right
-// stations for the right day....
 var stationOrder = [
   'san-francisco',
   '22nd-street',
