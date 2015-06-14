@@ -26,7 +26,8 @@ var StationSelectView = React.createClass({
       new Date(1433781124337)
     );
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView 
+        style={styles.container}>
         <View style={styles.stationContainer}>
           {todayStations.map(
             (station) => this.renderStationSelector(station),
@@ -51,7 +52,9 @@ var StationSelectView = React.createClass({
     if (this.props.omitStation &&
         station.id === this.props.omitStation) {
       return (
-        <View style={styles.omitStation}>
+        <View 
+          key={station.id}
+          style={styles.omitStation}>
           {stationView}
         </View>
       );
@@ -73,6 +76,9 @@ var styles = StyleSheet.create({
   omitStation: {
     opacity: 0.5,
     backgroundColor: '#111'
+  },
+  stationContainer: {
+    flex: 1,
   },
   callToAction: {
     backgroundColor: Colors.DEEPER,
