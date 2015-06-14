@@ -33,6 +33,12 @@ function _getDateForTimeString(date, timeString) {
     throw new Error('cant use + and pm');
   }
 
+  if (_strContains(minutesRaw, 'am') &&
+      hours === 12) {
+    // this is considered 0-hour in our land
+    hours = 0;
+  }
+
   if (_strContains(minutesRaw, 'pm') &&
       hours !== 12) {
     // handle the am/pm split, but of course 12pm

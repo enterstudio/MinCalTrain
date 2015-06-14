@@ -4,7 +4,7 @@ var TrainTypes = require('../constants/TrainTypes');
 var TimeTables = require('../time_tables/TimeTables');
 var Schedules = [
   require('../time_tables/WeekdayNorthBound'),
-  // require('../time_tables/WeekdaySouthBound'),
+  require('../time_tables/WeekdaySouthBound'),
 ];
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
@@ -75,13 +75,30 @@ describe('time tables', function() {
           .toBeGreaterThan(
             currentTime.getTime(),
             'Expected ' + thisStopTime.toString() +
-              'to be later than ' + currentTime.toString() +
-              'for stopID ' + stopID + ' and train ' + train.id
+              ' to be later than ' + currentTime.toString() +
+              ' for stopID ' + stopID + ' and train ' + train.id
           );
         currentTime = thisStopTime;
       });
 
     });
+  });
+
+  it('can parse timestrings', function() {
+    var mondayMorning = new Date(1433781124337);
+    var time = TimeTables._getDateForTimeString(
+      mondayMorning,
+      '+12:59am'
+    );
+    expect(time.toString())
+      .toEqual('Tue Jun 09 2015 00:59:00 GMT-0700 (PDT)');
+
+    var time = TimeTables._getDateForTimeString(
+      mondayMorning,
+      '+1:10am'
+    );
+    expect(time.toString())
+      .toEqual('Tue Jun 09 2015 01:10:00 GMT-0700 (PDT)');
   });
 
   it('has a schedule for all days', function() {
@@ -141,7 +158,7 @@ describe('time tables', function() {
       .toEqual('Mon Jun 08 2015 23:01:00 GMT-0700 (PDT)');
     // note that this respects midnight and the next day
     expect(lastTrip.timeArriving.toString())
-      .toEqual('Tue Jun 09 2015 12:03:00 GMT-0700 (PDT)');
+      .toEqual('Tue Jun 09 2015 00:03:00 GMT-0700 (PDT)');
   });
 
 });
