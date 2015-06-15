@@ -1,4 +1,3 @@
-var assign = require('object-assign');
 var React = require('react-native');
 var {
   ScrollView,
@@ -14,6 +13,8 @@ var StationSelectView = require('../views/StationSelectView');
 var TripActions = require('../actions/TripActions');
 var TripStore = require('../stores/TripStore');
 var Stations = require('../constants/Stations');
+var EmojiRowEndView = require('../views/EmojiRowEndView');
+var CallToActionRowView = require('../views/CallToActionRowView');
 
 var ArrivalSelectView = React.createClass({
 
@@ -23,19 +24,17 @@ var ArrivalSelectView = React.createClass({
 
   render: function() {
     return (
-      <View>
+      <View style={styles.metaContainer}>
         <View style={styles.departingContainer}>
           {this.renderDeparting()}
         </View>
-        <View style={styles.callToAction}>
-          <Text style={styles.callToActionText}>
-            Arriving to?
-          </Text>
-          <Text style={styles.emojiText}>
+        <CallToActionRowView
+          label="Arriving to?">
+          <EmojiRowEndView>
             {Emoji.LOVE_HOTEL}
             {Emoji.END}
-          </Text>
-        </View>
+          </EmojiRowEndView>
+        </CallToActionRowView>
         <StationSelectView
           omitStation={TripStore.getDepartureStationID()}
           onStationSelect={(stationID) => {
@@ -62,32 +61,21 @@ var ArrivalSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  metaContainer: {
+    margin: 10,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: Colors.DEEPER,
+  },
   departingContainer: {
     backgroundColor: Colors.DEEPER,
-    padding: 12,
     paddingTop: 12,
-    paddingBottom: 12
+    paddingLeft: 12,
+    paddingRight: 12,
   },
   departingText: {
     fontSize: 12,
     color: '#DDD'
-  },
-  emojiText: {
-    fontSize: 20,
-    position: 'absolute',
-    right: 10,
-    top: -6
-  },
-  callToAction: {
-    backgroundColor: Colors.DEEPER,
-    padding: 12,
-    flex: 1,
-    paddingTop: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  callToActionText: {
-    color: '#111'
   },
 });
 

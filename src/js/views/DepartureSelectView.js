@@ -1,9 +1,9 @@
-var assign = require('object-assign');
 var React = require('react-native');
 var {
   ScrollView,
   StyleSheet,
   Text,
+  Image,
   View,
 } = React;
 
@@ -13,6 +13,8 @@ var Routes = require('../constants/Routes');
 var StationSelectView = require('../views/StationSelectView');
 var TripActions = require('../actions/TripActions');
 var TripStore = require('../stores/TripStore');
+var EmojiRowEndView = require('../views/EmojiRowEndView');
+var CallToActionRowView = require('../views/CallToActionRowView');
 
 var DepartureSelectView = React.createClass({
 
@@ -22,15 +24,15 @@ var DepartureSelectView = React.createClass({
 
   render: function() {
     return (
-      <View>
+      <View style={styles.metaContainer}>
         <View style={styles.callToAction}>
-          <Text style={styles.callToActionText}>
-            Departing from?
-          </Text>
-          <Text style={styles.emojiText}>
-            {Emoji.TRAIN}
-            {Emoji.RIGHT_ARROW}
-          </Text>
+          <CallToActionRowView
+            label="Departing from?">
+            <EmojiRowEndView>
+              {Emoji.TRAIN}
+              {Emoji.RIGHT_ARROW}
+            </EmojiRowEndView>
+          </CallToActionRowView>
         </View>
         <StationSelectView
           onStationSelect={(stationID) => {
@@ -47,20 +49,11 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  emojiText: {
-    fontSize: 20,
-    position: 'absolute',
-    right: 10,
-    top: 6
-  },
-  callToAction: {
-    backgroundColor: Colors.DEEPER,
-    padding: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  callToActionText: {
-    color: '#111'
+  metaContainer: {
+    margin: 20,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: Colors.DEEPER,
   },
 });
 
