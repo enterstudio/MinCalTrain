@@ -12,6 +12,9 @@ var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
 var TripStore = require('../stores/TripStore');
 var TimeTables = require('../time_tables/TimeTables');
+var EmojiRowEndView = require('../views/EmojiRowEndView');
+var CallToActionRowView = require('../views/CallToActionRowView');
+var ListRowView = require('../views/ListRowView');
 
 var TimesView = React.createClass({
 
@@ -64,19 +67,32 @@ var TimesView = React.createClass({
     // Details view that expands
     // Make sure to key by maybe the routeInfo?
     return (
-      <ScrollView>
-        {routes.map(route => this.renderRoute(route))}
-      </ScrollView>
+      <View style={styles.metaContainer}>
+        <CallToActionRowView
+          label="Sweet! Great ready for your trip">
+          <EmojiRowEndView>
+            {Emoji.HORIZONTAL_TRAFFIC_LIGHT}
+            {Emoji.STATION}
+            {Emoji.RUNNER}
+          </EmojiRowEndView>
+        </CallToActionRowView>
+        <ScrollView>
+          {routes.map(route => this.renderRoute(route))}
+        </ScrollView>
+      </View>
     );
   },
 
   renderRoute: function(route) {
+    console.log(route);
     return (
-      <View 
-        style={styles.route}
+      <ListRowView
         key={route.timeLeaving.getTime()}>
         <Text>
-          Train leaving at
+          Train
+          {' '}
+          {route.train.id}
+          {' '}
           {route.timeLeaving.toString()}
           arriving at
           {route.timeLeaving.toString()}
@@ -84,15 +100,15 @@ var TimesView = React.createClass({
           X
           minutes
         </Text>
-      </View>
+      </ListRowView>
     );
   },
   
 });
 
 var styles = StyleSheet.create({
-  route: {
-    height: 100,
+  metaContainer: {
+    margin: 20,
   }
 });
 

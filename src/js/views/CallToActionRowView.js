@@ -21,10 +21,7 @@ var CallToActionRowView = React.createClass({
         <Text style={styles.callToActionText}>
           {this.props.label}
         </Text>
-        <EmojiRowEndView>
-          {Emoji.TRAIN}
-          {Emoji.RIGHT_ARROW}
-        </EmojiRowEndView>
+        {this.props.children}
       </View>
     );
   },

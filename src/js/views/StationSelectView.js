@@ -1,4 +1,3 @@
-var assign = require('object-assign');
 var React = require('react-native');
 var {
   ScrollView,
@@ -12,6 +11,7 @@ var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var Stations = require('../constants/Stations');
 var TimeTables = require('../time_tables/TimeTables');
+var ListRowView = require('../views/ListRowView');
 
 var StationSelectView = React.createClass({
 
@@ -39,14 +39,9 @@ var StationSelectView = React.createClass({
 
   renderStationSelector: function(station) {
     var stationView = (
-      <View>
-        <View style={styles.textContainer}>
-          <Text style={styles.stationName}>
-            {station.name}
-          </Text>
-        </View>
-        <View style={styles.divider} />
-      </View>
+      <ListRowView>
+        {station.name}
+      </ListRowView>
     );
 
     if (this.props.omitStation &&
@@ -65,7 +60,9 @@ var StationSelectView = React.createClass({
         key={station.id}
         onPress={this.props.onStationSelect.bind(this, station.id)}
         underlayColor={Colors.LIOHUA}>
-        {stationView}
+        <View>
+          {stationView}
+        </View>
       </TouchableHighlight>
     );
   },
