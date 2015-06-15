@@ -22,6 +22,9 @@ var TimesView = React.createClass({
   render: function() {
     var stopOneID = TripStore.getDepartureStationID();
     var stopTwoID = TripStore.getArrivalStationID();
+    // Key by stops so this will refresh in case we change.
+    // Another thing to keep in mind is if we have departure
+    // time offsets.
     var key = stopOneID + stopTwoID;
 
     return (
@@ -40,6 +43,7 @@ var TimesView = React.createClass({
       stopTwoID
     );
 
+    // TODO -- scared emoji
     if (!routes) {
       return (
         <View>
@@ -59,12 +63,26 @@ var TimesView = React.createClass({
     // List of times
     // Details view that expands
     // Make sure to key by maybe the routeInfo?
-
     return (
-      <View>
+      <ScrollView>
+        {routes.map(route => this.renderRoute(route))}
+      </ScrollView>
+    );
+  },
+
+  renderRoute: function(route) {
+    return (
+      <View 
+        style={styles.route}
+        key={route.timeLeaving.getTime()}>
         <Text>
-          {routes[0].timeLeaving.toString()}
-          {routes[0].timeArriving.toString()}
+          Train leaving at
+          {route.timeLeaving.toString()}
+          arriving at
+          {route.timeLeaving.toString()}
+          taking
+          X
+          minutes
         </Text>
       </View>
     );
@@ -73,30 +91,9 @@ var TimesView = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  omitStation: {
-    opacity: 0.5,
-    backgroundColor: '#111'
-  },
-  callToAction: {
-    backgroundColor: Colors.DEEPER,
-    padding: 12,
-  },
-  callToActionText: {
-    color: '#111'
-  },
-  divider: {
-    height: 1,
-    backgroundColor: Colors.DEEPER,
-  },
-  textContainer: {
-    padding: 16,
-  },
-  stationName: {
-    color: '#EEE'
-  },
-  container: {
-    backgroundColor: Colors.GREY,
-  },
+  route: {
+    height: 100,
+  }
 });
 
 module.exports = TimesView;
