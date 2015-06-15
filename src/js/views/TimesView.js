@@ -15,6 +15,7 @@ var TimeTables = require('../time_tables/TimeTables');
 var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
 var ListRowView = require('../views/ListRowView');
+var BackgroundCoverView = require('../views/BackgroundCoverView');
 
 var TimesView = React.createClass({
 
@@ -67,7 +68,7 @@ var TimesView = React.createClass({
     // Details view that expands
     // Make sure to key by maybe the routeInfo?
     return (
-      <View style={styles.metaContainer}>
+      <BackgroundCoverView imageName="jun_seita">
         <CallToActionRowView
           label="Sweet! Great ready for your trip">
           <EmojiRowEndView>
@@ -79,13 +80,14 @@ var TimesView = React.createClass({
         <ScrollView>
           {routes.map(route => this.renderRoute(route))}
         </ScrollView>
-      </View>
+      </BackgroundCoverView>
     );
   },
 
   renderRoute: function(route) {
     return (
       <ListRowView
+        style={styles.timeContainer}
         key={route.timeLeaving.getTime()}>
         <Text>
           Train
@@ -106,8 +108,8 @@ var TimesView = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  metaContainer: {
-    margin: 20,
+  timeContainer: {
+    backgroundColor: Colors.GREY,
   }
 });
 

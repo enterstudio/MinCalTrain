@@ -12,7 +12,7 @@ var ListRowView = React.createClass({
 
   render: function() {
     return (
-      <View>
+      <View style={this.props.style}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
             {this.props.children}

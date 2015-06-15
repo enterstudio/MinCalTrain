@@ -15,6 +15,7 @@ var TripStore = require('../stores/TripStore');
 var Stations = require('../constants/Stations');
 var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
+var BackgroundCoverView = require('../views/BackgroundCoverView');
 
 var ArrivalSelectView = React.createClass({
 
@@ -24,7 +25,7 @@ var ArrivalSelectView = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.metaContainer}>
+      <BackgroundCoverView imageName="brian_tobin">
         <View style={styles.departingContainer}>
           {this.renderDeparting()}
         </View>
@@ -44,7 +45,7 @@ var ArrivalSelectView = React.createClass({
             );
           }}
         />
-      </View>
+      </BackgroundCoverView>
     );
   },
 
@@ -61,12 +62,6 @@ var ArrivalSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  metaContainer: {
-    margin: 10,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: Colors.DEEPER,
-  },
   departingContainer: {
     backgroundColor: Colors.DEEPER,
     paddingTop: 12,
@@ -75,7 +70,7 @@ var styles = StyleSheet.create({
   },
   departingText: {
     fontSize: 12,
-    color: '#DDD'
+    color: '#FFF'
   },
 });
 

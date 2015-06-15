@@ -84,18 +84,12 @@ var styles = StyleSheet.create({
   callToActionText: {
     color: '#111'
   },
-  divider: {
-    height: 1,
-    backgroundColor: Colors.DEEPER,
-  },
   textContainer: {
     padding: 16,
   },
-  stationName: {
-    color: '#EEE'
-  },
   container: {
     backgroundColor: Colors.GREY,
+    flex: 1,
   },
 });
 
