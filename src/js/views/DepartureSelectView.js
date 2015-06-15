@@ -24,24 +24,31 @@ var DepartureSelectView = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.metaContainer}>
-        <View style={styles.callToAction}>
-          <CallToActionRowView
-            label="Departing from?">
-            <EmojiRowEndView>
-              {Emoji.TRAIN}
-              {Emoji.RIGHT_ARROW}
-            </EmojiRowEndView>
-          </CallToActionRowView>
-        </View>
-        <StationSelectView
-          onStationSelect={(stationID) => {
-            TripActions.selectDeparture(stationID);
-            this.props.navigator.push(
-              Routes.getRouteForID(Routes.SELECT_ARRIVAL)
-            );
-          }}
+      <View>
+        <Image 
+          accessible={false}
+          style={styles.backgroundImage}
+          source={require('image!smif')}
         />
+        <View style={styles.metaContainer}>
+          <View style={styles.callToAction}>
+            <CallToActionRowView
+              label="Departing from?">
+              <EmojiRowEndView>
+                {Emoji.TRAIN}
+                {Emoji.RIGHT_ARROW}
+              </EmojiRowEndView>
+            </CallToActionRowView>
+          </View>
+          <StationSelectView
+            onStationSelect={(stationID) => {
+              TripActions.selectDeparture(stationID);
+              this.props.navigator.push(
+                Routes.getRouteForID(Routes.SELECT_ARRIVAL)
+              );
+            }}
+          />
+        </View>
       </View>
     );
   },
@@ -49,8 +56,16 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  backgroundImage: {
+    width: 380,
+    height: 650,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
   metaContainer: {
-    margin: 20,
+    opacity: 0.8,
+    margin: 40,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderColor: Colors.DEEPER,

@@ -84,7 +84,6 @@ var TimesView = React.createClass({
   },
 
   renderRoute: function(route) {
-    console.log(route);
     return (
       <ListRowView
         key={route.timeLeaving.getTime()}>
