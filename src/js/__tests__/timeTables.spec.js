@@ -2,22 +2,23 @@ var Directions = require('../constants/Directions');
 var Stations = require('../constants/Stations');
 var TrainTypes = require('../constants/TrainTypes');
 var TimeTables = require('../time_tables/TimeTables');
-var Schedules = [
-  require('../time_tables/WeekdayNorthBound'),
-  require('../time_tables/WeekdaySouthBound'),
-  require('../time_tables/SundayNorthBound'),
-  require('../time_tables/SundaySouthBound'),
-  require('../time_tables/SaturdayNorthBound'),
-  require('../time_tables/SaturdaySouthBound'),
-];
+var Schedules = {
+  WeekdayNorthBound: require('../time_tables/WeekdayNorthBound'),
+  WeekdaySouthBound: require('../time_tables/WeekdaySouthBound'),
+  SundayNorthBound: require('../time_tables/SundayNorthBound'),
+  SundaySouthBound: require('../time_tables/SundaySouthBound'),
+  SaturdayNorthBound: require('../time_tables/SaturdayNorthBound'),
+  SaturdaySouthBound: require('../time_tables/SaturdaySouthBound'),
+};
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
 var MONDAY_MORNING = 1433781124337;
 
 var _trainLoop = function(callback) {
-  Schedules.forEach(function(schedule) {
+  Object.keys(Schedules).forEach(function(scheduleKey) {
+    var schedule = Schedules[scheduleKey];
     schedule.forEach(function(train) {
-      callback(train);
+      callback(train, scheduleKey);
     });
   });
 };
@@ -85,6 +86,25 @@ describe('time tables', function() {
           );
         currentTime = thisStopTime;
       });
+    });
+  });
+
+  it('the direction of the stops matches that of the schedule', function() {
+    _trainLoop(function(train, scheduleKey) {
+      var firstStopID = Object.keys(train.stops)[0];
+
+      Object.keys(train.stops).forEach(function(stopID) {
+        if (stopID === firstStopID) {
+          return;
+        }
+
+        var direction = TimeTables._getDirectionForStops(
+          firstStopID,
+          stopID,
+        );
+        console.log(direciton);
+      });
+    });
 
     });
   });
