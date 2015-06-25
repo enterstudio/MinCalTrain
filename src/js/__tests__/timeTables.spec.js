@@ -105,6 +105,7 @@ describe('time tables', function() {
         var expectedDirection = scheduleKey.indexOf('South') !== -1 ?
           Directions.SOUTH_BOUND :
           Directions.NORTH_BOUND;
+
         expect(direction).toBe(expectedDirection, 'Direction should be ' +
            expectedDirection + ' for schedule key ' + scheduleKey + ' and stops ' +
            firstStopID + ' ' + stopID);

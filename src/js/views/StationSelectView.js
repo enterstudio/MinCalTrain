@@ -21,9 +21,8 @@ var StationSelectView = React.createClass({
   },
 
   render: function() {
-    // TODO -- not monday morning
     var todayStations = TimeTables.getStationsForDay(
-      new Date(1433781124337)
+      new Date()
     );
     return (
       <ScrollView 

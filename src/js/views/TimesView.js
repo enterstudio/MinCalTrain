@@ -1,4 +1,5 @@
 var assign = require('object-assign');
+var moment = require('moment');
 var React = require('react-native');
 var {
   ScrollView,
@@ -8,6 +9,7 @@ var {
   View,
 } = React;
 
+var formatTimeAmount = require('../util/formatTimeAmount');
 var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
 var TripStore = require('../stores/TripStore');
@@ -42,7 +44,7 @@ var TimesView = React.createClass({
     var stopOneID = TripStore.getDepartureStationID();
     var stopTwoID = TripStore.getArrivalStationID();
     var routes = TimeTables.getRoutesForTrip(
-      new Date(1433781124337), // TODO -- not monday
+      new Date(),
       stopOneID,
       stopTwoID
     );
@@ -85,6 +87,8 @@ var TimesView = React.createClass({
   },
 
   renderRoute: function(route) {
+    console.log(route);
+    // TODO -- detail row below
     return (
       <ListRowView
         style={styles.timeContainer}
@@ -92,14 +96,29 @@ var TimesView = React.createClass({
         <Text>
           Train
           {' '}
-          {route.train.id}
+          <Text style={styles.boldText}>
+            {route.train.id}
+          </Text>
           {' '}
-          {route.timeLeaving.toString()}
+          Leaving
+          {' '}
+          <Text style={styles.boldText}>
+            {moment(route.timeLeaving).fromNow()}
+          </Text>
+          {' '}
           arriving at
-          {route.timeLeaving.toString()}
+          {' '}
+          <Text style={styles.boldText}>
+            {moment(route.timeArriving).format('h:mm:ss a')}
+          </Text>
+          {' '}
           taking
-          X
-          minutes
+          {' '}
+          <Text style={styles.boldText}>
+            {formatTimeAmount(
+              route.timeArriving - route.timeLeaving
+            )}
+          </Text>
         </Text>
       </ListRowView>
     );
@@ -110,6 +129,9 @@ var TimesView = React.createClass({
 var styles = StyleSheet.create({
   timeContainer: {
     backgroundColor: Colors.GREY,
+  },
+  boldText: {
+    fontWeight: 'bold',
   }
 });
 
