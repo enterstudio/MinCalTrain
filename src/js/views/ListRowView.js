@@ -10,14 +10,21 @@ var Colors = require('../constants/Colors');
 
 var ListRowView = React.createClass({
 
+  propTypes: {
+    nonText: React.PropTypes.bool,
+  },
+
   render: function() {
+    var inner = this.props.nonText ? this.props.children :
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>
+          {this.props.children}
+        </Text>
+      </View>
+
     return (
       <View style={this.props.style}>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            {this.props.children}
-          </Text>
-        </View>
+        {inner}
         <View style={styles.divider} />
       </View>
     );

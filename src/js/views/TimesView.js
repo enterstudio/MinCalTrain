@@ -12,6 +12,7 @@ var {
 var formatTimeAmount = require('../util/formatTimeAmount');
 var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
+var TrainTypes = require('../constants/TrainTypes');
 var TripStore = require('../stores/TripStore');
 var TimeTables = require('../time_tables/TimeTables');
 var EmojiRowEndView = require('../views/EmojiRowEndView');
@@ -79,56 +80,119 @@ var TimesView = React.createClass({
             {Emoji.RUNNER}
           </EmojiRowEndView>
         </CallToActionRowView>
-        <ScrollView>
-          {routes.map(route => this.renderRoute(route))}
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.scrollContainer}>
+            {routes.map(route => this.renderRoute(route))}
+          </View>
         </ScrollView>
       </BackgroundCoverView>
     );
   },
 
   renderRoute: function(route) {
-    console.log(route);
-    // TODO -- detail row below
+    var trainType = route.train.type;
+    // TODO -- colors for only the falsest routes
     return (
       <ListRowView
+        nonText={true}
         style={styles.timeContainer}
         key={route.timeLeaving.getTime()}>
-        <Text>
-          Train
-          {' '}
-          <Text style={styles.boldText}>
+        <View style={[
+            styles.rowContainer,
+            this.getStyleForTrainType(trainType)
+          ]}>
+          <Text style={styles.trainHeader}>
+            Train
+            {' '}
             {route.train.id}
+            <Text style={styles.boldText}>
+              {this.renderTrainLabel(trainType)}
+            </Text>
           </Text>
-          {' '}
-          Leaving
-          {' '}
-          <Text style={styles.boldText}>
-            {moment(route.timeLeaving).fromNow()}
+          <Text style={styles.infoText}>
+            Departs
+            {' '}
+            <Text style={styles.boldText}>
+              {moment(route.timeArriving).format('h:mm a')}
+            </Text>
+            {' '}
+            taking
+            {' '}
+            <Text style={styles.boldText}>
+              {formatTimeAmount(
+                route.timeArriving - route.timeLeaving
+              )}
+            </Text>
           </Text>
-          {' '}
-          arriving at
-          {' '}
-          <Text style={styles.boldText}>
-            {moment(route.timeArriving).format('h:mm:ss a')}
+          <Text style={styles.subText}>
+            Leaves 
+            {' '}
+            {moment(route.timeArriving).fromNow()},
+            arrives at
+            {' '}
+            {moment(route.timeArriving).format('h:mm a')}
           </Text>
-          {' '}
-          taking
-          {' '}
-          <Text style={styles.boldText}>
-            {formatTimeAmount(
-              route.timeArriving - route.timeLeaving
-            )}
-          </Text>
-        </Text>
+        </View>
       </ListRowView>
     );
+  },
+
+  getStyleForTrainType: function(trainType) {
+    switch (trainType) {
+      case TrainTypes.LIMITED_STOP:
+        return styles.limitedStop;
+      case TrainTypes.BABY_BULLET:
+      case TrainTypes.WEEKEND_BABY_BULLET:
+        return styles.babyBullet;
+    }
+    return null;
+  },
+
+  renderTrainLabel: function(trainType) {
+    switch (trainType) {
+      case TrainTypes.LIMITED_STOP:
+        return ' Limited Stop';
+      case TrainTypes.BABY_BULLET:
+        return ' Baby Bullet!';
+      case TrainTypes.WEEKEND_BABY_BULLET:
+        return ' Weekend Baby Bullet!';
+    }
+    return '';
   },
   
 });
 
 var styles = StyleSheet.create({
+  babyBullet: {
+    backgroundColor: Colors.SHE_DRESSED_ME,
+  },
+  limitedStop: {
+    backgroundColor: Colors.DEEPER,
+  },
+  trainHeader: {
+    fontSize: 10,
+    color: '#CCC'
+  },
+  infoText: {
+    color: '#EEE'
+  },
+  subText: {
+    fontSize: 10,
+    color: '#CCC'
+  },
+  rowContainer: {
+    padding: 8,
+    flex: 1,
+  },
   timeContainer: {
     backgroundColor: Colors.GREY,
+    flex: 1,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
   },
   boldText: {
     fontWeight: 'bold',

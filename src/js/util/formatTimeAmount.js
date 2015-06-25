@@ -12,11 +12,12 @@ var formatTimeAmount = function(numMilliSeconds) {
   var numHours = Math.floor(numMinutes / 60);
 
   if (numHours === 0) {
+    numMinutes = Math.round(numMinutes);
     return ''+numMinutes + ' minute' +
       (numMinutes !== 1 ? 's' : '');
   }
 
-  var leftOverMinutes = numMinutes % 60;
+  var leftOverMinutes = Math.round(numMinutes % 60);
 
   var result = ''+numHours + ' hour' +
       (numHours !== 1 ? 's' : '');
