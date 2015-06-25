@@ -5,6 +5,7 @@ var TimeTables = require('../time_tables/TimeTables');
 var Schedules = [
   require('../time_tables/WeekdayNorthBound'),
   require('../time_tables/WeekdaySouthBound'),
+  require('../time_tables/SundayNorthBound'),
 ];
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
