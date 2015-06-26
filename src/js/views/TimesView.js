@@ -35,7 +35,7 @@ var TimesView = React.createClass({
     var key = stopOneID + stopTwoID;
 
     return (
-      <View key={key}>
+      <View style={styles.metaContainer} key={key}>
         {this.renderImpl()}
       </View>
     );
@@ -163,6 +163,9 @@ var TimesView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  metaContainer: {
+    flex: 1,
+  },
   babyBullet: {
     backgroundColor: Colors.SHE_DRESSED_ME,
   },
