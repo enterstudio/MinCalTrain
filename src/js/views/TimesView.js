@@ -113,7 +113,7 @@ var TimesView = React.createClass({
             Departs
             {' '}
             <Text style={styles.boldText}>
-              {moment(route.timeArriving).format('h:mm a')}
+              {moment(route.timeLeaving).format('h:mm a')}
             </Text>
             {' '}
             taking
@@ -127,7 +127,7 @@ var TimesView = React.createClass({
           <Text style={styles.subText}>
             Leaves 
             {' '}
-            {moment(route.timeArriving).fromNow()},
+            {moment(route.timeLeaving).fromNow()},
             arrives at
             {' '}
             {moment(route.timeArriving).format('h:mm a')}
