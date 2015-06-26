@@ -2,13 +2,8 @@
  * Poor mans time format utility since we dont have that
  * in moment.js
  */
-var formatTimeAmount = function(numMilliSeconds) {
-  if (numMilliSeconds <= 0) {
-    throw new Error('Invalid time length', numMilliSeconds);
-  }
 
-  var numSeconds = numMilliSeconds / 1000;
-  var numMinutes = numSeconds / 60;
+var formatFromMinutes = function(numMinutes) {
   var numHours = Math.floor(numMinutes / 60);
 
   if (numHours === 0) {
@@ -27,4 +22,28 @@ var formatTimeAmount = function(numMilliSeconds) {
   return result;
 };
 
-module.exports = formatTimeAmount;
+var formatMinutesAbbrev = function(numMinutes) {
+  var long = formatFromMinutes(numMinutes);
+  return long
+    .replace(' minutes', 'm')
+    .replace(' minute', 'm')
+    .replace(' hours', 'h')
+    .replace(' hour', 'h')
+    .replace(',', '');
+};
+
+var formatTimeAmount = function(numMilliSeconds) {
+  if (numMilliSeconds <= 0) {
+    throw new Error('Invalid time length', numMilliSeconds);
+  }
+
+  var numSeconds = numMilliSeconds / 1000;
+  var numMinutes = numSeconds / 60;
+  return formatFromMinutes(numMinutes);
+};
+
+module.exports = {
+  formatMilliseconds: formatTimeAmount,
+  formatMinutes: formatFromMinutes,
+  formatMinutesAbbrev: formatMinutesAbbrev,
+};

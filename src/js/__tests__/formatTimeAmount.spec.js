@@ -6,7 +6,9 @@ function _getMilliSeconds(hours, minutes) {
 }
 
 function _getString(hours, minutes) {
-  return formatTimeAmount(_getMilliSeconds(hours, minutes));
+  return formatTimeAmount.formatMilliseconds(
+    _getMilliSeconds(hours, minutes)
+  );
 }
 
 describe('format time amount', function() {
@@ -21,5 +23,17 @@ describe('format time amount', function() {
     expect(_getString(0, 3)).toBe('3 minutes');
     expect(_getString(0, 1)).toBe('1 minute');
     expect(_getString(2, 1)).toBe('2 hours, 1 minute');
+  });
+
+  it('fromats from minutes', function() {
+    expect(formatTimeAmount.formatMinutes(123)).toBe('2 hours, 3 minutes');
+    expect(formatTimeAmount.formatMinutes(3)).toBe('3 minutes');
+    expect(formatTimeAmount.formatMinutes(1)).toBe('1 minute');
+  });
+
+  it('formats with abbrev', function() {
+    expect(formatTimeAmount.formatMinutesAbbrev(123)).toBe('2h 3m');
+    expect(formatTimeAmount.formatMinutesAbbrev(3)).toBe('3m');
+    expect(formatTimeAmount.formatMinutesAbbrev(1)).toBe('1m');
   });
 });

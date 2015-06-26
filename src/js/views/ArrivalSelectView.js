@@ -70,7 +70,7 @@ var styles = StyleSheet.create({
   },
   departingText: {
     fontSize: 12,
-    color: '#FFF'
+    color: '#EEE'
   },
 });
 

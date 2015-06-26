@@ -6,4 +6,5 @@ module.exports = {
   STATION: '\ud83d\ude89',
   HORIZONTAL_TRAFFIC_LIGHT: '\ud83d\udea5',
   RUNNER: '\ud83c\udfc3',
+  FACE_SCARED: '\ud83d\ude31',
 };

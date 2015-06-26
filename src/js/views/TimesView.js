@@ -18,6 +18,7 @@ var TimeTables = require('../time_tables/TimeTables');
 var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
 var ListRowView = require('../views/ListRowView');
+var Stations = require('../constants/Stations');
 var BackgroundCoverView = require('../views/BackgroundCoverView');
 
 var TimesView = React.createClass({
@@ -36,7 +37,9 @@ var TimesView = React.createClass({
 
     return (
       <View style={styles.metaContainer} key={key}>
-        {this.renderImpl()}
+        <BackgroundCoverView imageName="jun_seita">
+          {this.renderImpl()}
+        </BackgroundCoverView>
       </View>
     );
   },
@@ -50,12 +53,13 @@ var TimesView = React.createClass({
       stopTwoID
     );
 
-    // TODO -- scared emoji
     if (!routes) {
       return (
-        <View>
+        <View style={styles.noStopsText}>
           <Text>
-            Oh no! We didn{"'"}t find any
+            Oh no! 
+            {Emoji.FACE_SCARED}
+            We didn{"'"}t find any
             routes for the stations you selected.
             This usually doesn{"'"}t happen --
             are you sure CalTrain stops at those
@@ -65,33 +69,30 @@ var TimesView = React.createClass({
       );
     }
 
+    var routeTimes = TimeTables.getSortedRouteTimes(routes);
     // TODO -- some kind of: header like
     // Heading FROM xx TO xx
-    // List of times
-    // Details view that expands
-    // Make sure to key by maybe the routeInfo?
     return (
-      <BackgroundCoverView imageName="jun_seita">
+      <View style={styles.metaContainer}>
         <CallToActionRowView
-          label="Sweet! Great ready for your trip">
+          label="Have fun on your trip!">
           <EmojiRowEndView>
             {Emoji.HORIZONTAL_TRAFFIC_LIGHT}
             {Emoji.STATION}
-            {Emoji.RUNNER}
           </EmojiRowEndView>
         </CallToActionRowView>
+        {this.renderHeader(routeTimes)}
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollContainer}>
-            {routes.map(route => this.renderRoute(route))}
+            {routes.map(route => this.renderRoute(route, routeTimes))}
           </View>
         </ScrollView>
-      </BackgroundCoverView>
+      </View>
     );
   },
 
-  renderRoute: function(route) {
+  renderRoute: function(route, routeTimes) {
     var trainType = route.train.type;
-    // TODO -- colors for only the falsest routes
     return (
       <ListRowView
         nonText={true}
@@ -99,7 +100,7 @@ var TimesView = React.createClass({
         key={route.timeLeaving.getTime()}>
         <View style={[
             styles.rowContainer,
-            this.getStyleForTrainType(trainType)
+            this.getStyleForTrainDuration(route, routeTimes)
           ]}>
           <Text style={styles.trainHeader}>
             Train
@@ -119,7 +120,7 @@ var TimesView = React.createClass({
             taking
             {' '}
             <Text style={styles.boldText}>
-              {formatTimeAmount(
+              {formatTimeAmount.formatMilliseconds(
                 route.timeArriving - route.timeLeaving
               )}
             </Text>
@@ -137,13 +138,60 @@ var TimesView = React.createClass({
     );
   },
 
-  getStyleForTrainType: function(trainType) {
-    switch (trainType) {
-      case TrainTypes.LIMITED_STOP:
-        return styles.limitedStop;
-      case TrainTypes.BABY_BULLET:
-      case TrainTypes.WEEKEND_BABY_BULLET:
-        return styles.babyBullet;
+  renderHeader: function(routeTimes) {
+    var stopOneID = TripStore.getDepartureStationID();
+    var stopTwoID = TripStore.getArrivalStationID();
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>
+          <Text style={styles.boldText}>
+            {Stations.getStationName(stopOneID) + ' '}
+          </Text>
+          to
+          <Text style={styles.boldText}>
+            {' ' + Stations.getStationName(stopTwoID)}
+          </Text>
+        </Text>
+        {this.renderTimeRange(routeTimes)}
+      </View>
+    );
+  },
+
+  renderTimeRange: function(routeTimes) {
+    console.log(routeTimes);
+    if (routeTimes.length <= 1) {
+      return (
+        <Text style={styles.headerText}>
+          {formatTimeAmount.formatMinutesAbbrev(routeTimes[0])}
+        </Text>
+      );
+    }
+    return (
+      <Text style={styles.headerText}>
+        {formatTimeAmount.formatMinutesAbbrev(routeTimes[0])}
+        {' - '}
+        {formatTimeAmount.formatMinutesAbbrev(routeTimes[routeTimes.length - 1])}
+      </Text>
+    );
+  },
+
+  getStyleForTrainDuration: function(route, routeTimes) {
+    if (routeTimes.length === 1) {
+      // Only one time at all
+      return null;
+    }
+
+    var routeTime = TimeTables.getMinutesForRoute(route);
+    switch (routeTimes.indexOf(routeTime)) {
+      case 0:
+        // fastest
+        return styles.fastestRoute;
+      case 1:
+        if (routeTimes.length > 2) {
+          // second fastest only relevant if theres something
+          // slower
+          return styles.secondFastestRoute;
+        }
     }
     return null;
   },
@@ -166,10 +214,14 @@ var styles = StyleSheet.create({
   metaContainer: {
     flex: 1,
   },
-  babyBullet: {
+  noStopsText: {
+    backgroundColor: Colors.SHE_DRESSED_ME,
+    padding: 12
+  },
+  fastestRoute: {
     backgroundColor: Colors.SHE_DRESSED_ME,
   },
-  limitedStop: {
+  secondFastestRoute: {
     backgroundColor: Colors.DEEPER,
   },
   trainHeader: {
@@ -199,7 +251,17 @@ var styles = StyleSheet.create({
   },
   boldText: {
     fontWeight: 'bold',
-  }
+  },
+  headerContainer: {
+    backgroundColor: Colors.DEEPER,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
+  headerText: {
+    fontSize: 12,
+    color: '#EEE'
+  },
 });
 
 module.exports = TimesView;
