@@ -30,6 +30,10 @@ var MinCalTrain = React.createClass({
     throw new Error('No route found for ' + route.id);
   },
 
+  _configureScene: function(route) {
+    return Navigator.SceneConfigs.FloatFromRight;
+  },
+
   render: function() {
     return (
       <View style={styles.background}>
@@ -37,6 +41,7 @@ var MinCalTrain = React.createClass({
         <Navigator
           initialRoute={Routes.getRouteForID(INITIAL_ROUTE)}
           renderScene={this._renderScene}
+          configureScene={this._configureScene}
         />
       </View>
     );
