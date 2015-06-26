@@ -155,6 +155,29 @@ var TimeTables = {
     return result;
   },
 
+  getSortedRouteTimes: function(options) {
+    var seenTimes = {};
+    options.forEach(function(route) {
+      seenTimes[this.getMinutesForRoute(route)] = true;
+    }.bind(this));
+
+    return Object.keys(seenTimes).sort(function(a, b) {
+      return a - b;
+    }).map(function(a) { return +a; }); // convert to int
+  },
+
+  getMinutesForRoute: function(route) {
+    if (!route.timeLeaving || !route.timeArriving) {
+      throw new Error('bad route given');
+    }
+    if (route.timeLeaving.getTime() > route.timeArriving.getTime()) {
+      throw new Error('times backwards');
+    }
+    var msDuration = route.timeArriving.getTime() -
+      route.timeLeaving.getTime();
+    return Math.round(msDuration / (1000 * 60));
+  },
+
   getRoutesForTrip: function(date, stopOneID, stopTwoID) {
     var daySchedule = this.getScheduleForDay(date);
     var direction = _getDirectionForStops(stopOneID, stopTwoID);

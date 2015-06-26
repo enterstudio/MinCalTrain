@@ -191,6 +191,41 @@ describe('time tables', function() {
       .toEqual('Tue Jun 09 2015 00:03:00 GMT-0700 (PDT)');
   });
 
+  it('can calculate minutes length for routes', function() {
+    var mondayMorning = new Date(MONDAY_MORNING);
+    var routes = TimeTables.getRoutesForTrip(
+      mondayMorning,
+      'palo-alto',
+      'san-francisco'
+    );
+
+    expect(routes.length).toBe(29);
+    var firstRoute = routes[0];
+    expect(TimeTables.getMinutesForRoute(firstRoute)).toBe(62);
+    expect(TimeTables.getMinutesForRoute(routes[7])).toBe(53);
+
+    expect(
+      function() {
+        TimeTables.getMinutesForRoute({});
+      }
+    ).toThrow();
+  });
+
+  it('can sort route times', function() {
+    var mondayMorning = new Date(MONDAY_MORNING);
+    var routes = TimeTables.getRoutesForTrip(
+      mondayMorning,
+      'palo-alto',
+      'san-francisco'
+    );
+
+    expect(routes.length).toBe(29);
+    var routeTimes = TimeTables.getSortedRouteTimes(routes);
+    expect(routeTimes[0]).toBe(40);
+    expect(routeTimes[1]).toBe(41);
+    expect(routeTimes[routeTimes.length - 1]).toBe(67);
+  });
+
   it('can filter stations based on the day', function() {
     var allStations = Stations.getAllStations();
 
