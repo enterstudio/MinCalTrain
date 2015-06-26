@@ -14,10 +14,16 @@ var IMAGES = {
   'brian_tobin': {
     source: require('image!brian_tobin'),
     attribution: 'Brian Tobin',
+    style: {
+      color: '#CCC'
+    },
   },
   'jun_seita': {
     source: require('image!jun_seita'),
     attribution: 'Jun Seita',
+    style: {
+      color: '#555'
+    },
   },
 };
 
@@ -41,7 +47,10 @@ var BackgroundCoverImageView = React.createClass({
           source={imageData.source}
         />
         <View style={styles.attribution}>
-          <Text style={styles.attributionText}>
+          <Text style={[
+              styles.attributionText,
+              imageData.style
+            ]}>
             {imageData.attribution}
           </Text>
         </View>
