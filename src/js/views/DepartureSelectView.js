@@ -22,7 +22,9 @@ var DepartureSelectView = React.createClass({
 
   render: function() {
     return (
-      <BackgroundCoverView imageName="smif">
+      <BackgroundCoverView
+        withAbout={true}
+        imageName="smif">
         <CallToActionRowView
           label="Departing from?">
           <EmojiRowEndView>
@@ -31,6 +33,12 @@ var DepartureSelectView = React.createClass({
           </EmojiRowEndView>
         </CallToActionRowView>
         <StationSelectView
+          withAbout={true}
+          onAboutPress={
+            () => this.props.navigator.push(
+              Routes.getRouteForID(Routes.ABOUT)
+            )
+          }
           onStationSelect={(stationID) => {
             TripActions.selectDeparture(stationID);
             this.props.navigator.push(

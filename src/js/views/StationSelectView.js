@@ -18,6 +18,8 @@ var StationSelectView = React.createClass({
   propTypes: {
     onStationSelect: React.PropTypes.func.isRequired,
     omitStation: React.PropTypes.string,
+    withAbout: React.PropTypes.bool,
+    onAboutPress: React.PropTypes.func,
   },
 
   render: function() {
@@ -31,6 +33,7 @@ var StationSelectView = React.createClass({
           {todayStations.map(
             (station) => this.renderStationSelector(station),
           )}
+          {this.renderAbout()}
         </View>
       </BorderedScrollView>
     );
@@ -66,9 +69,32 @@ var StationSelectView = React.createClass({
     );
   },
 
+  renderAbout: function() {
+    if (!this.props.withAbout) {
+      return null;
+    }
+    return (
+      <TouchableHighlight
+        style={styles.aboutContainer}
+        onPress={this.props.onAboutPress}
+        underlayColor={Colors.LIOHUA}>
+        <Text>
+          About
+        </Text>
+      </TouchableHighlight>
+    );
+  },
+
 });
 
 var styles = StyleSheet.create({
+  aboutContainer: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 12,
+    color: '#EEE',
+    backgroundColor: Colors.SHE_DRESSED_ME
+  },
   omitStation: {
     opacity: 0.5,
     backgroundColor: '#111'

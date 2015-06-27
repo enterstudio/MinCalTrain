@@ -20,7 +20,6 @@ var INITIAL_ROUTE = Routes.SELECT_DEPARTURE;
 var MinCalTrain = React.createClass({
 
   _renderScene: function(route, navigator) {
-    return <AboutView navigator={navigator} />;
     switch (route.id) {
       case Routes.SELECT_DEPARTURE:
         return <DepartureSelectView navigator={navigator} />;
@@ -28,6 +27,8 @@ var MinCalTrain = React.createClass({
         return <ArrivalSelectView navigator={navigator} />;
       case Routes.TIMES:
         return <TimesView navigator={navigator} />;
+      case Routes.ABOUT:
+        return <AboutView navigator={navigator} />;
     }
     throw new Error('No route found for ' + route.id);
   },
