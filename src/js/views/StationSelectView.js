@@ -78,7 +78,7 @@ var StationSelectView = React.createClass({
         style={styles.aboutContainer}
         onPress={this.props.onAboutPress}
         underlayColor={Colors.AQUA_BURST}>
-        <Text>
+        <Text style={styles.aboutText}>
           About
         </Text>
       </TouchableHighlight>
@@ -88,11 +88,13 @@ var StationSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  aboutText: {
+    color: '#EEE',
+  },
   aboutContainer: {
     flex: 1,
     alignItems: 'center',
     padding: 12,
-    color: '#EEE',
     backgroundColor: Colors.SHE_DRESSED_ME
   },
   omitStation: {
