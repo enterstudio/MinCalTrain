@@ -37,9 +37,6 @@ var styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
     marginTop: 40,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: Colors.DEEPER,
   },
 });
 

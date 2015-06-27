@@ -13,12 +13,14 @@ var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
 var ArrivalSelectView = require('../views/ArrivalSelectView');
 var TimesView = require('../views/TimesView');
+var AboutView = require('../views/AboutView');
 
 var INITIAL_ROUTE = Routes.SELECT_DEPARTURE;
 
 var MinCalTrain = React.createClass({
 
   _renderScene: function(route, navigator) {
+    return <AboutView navigator={navigator} />;
     switch (route.id) {
       case Routes.SELECT_DEPARTURE:
         return <DepartureSelectView navigator={navigator} />;
@@ -31,6 +33,10 @@ var MinCalTrain = React.createClass({
   },
 
   _configureScene: function(route) {
+    switch (route.id) {
+      case Routes.ABOUT:
+        return Navigator.SceneConfigs.FloatFromBottom;
+    }
     return Navigator.SceneConfigs.FloatFromRight;
   },
 

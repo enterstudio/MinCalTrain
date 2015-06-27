@@ -5,6 +5,7 @@ module.exports = keyMirror({
   SELECT_DEPARTURE: null,
   SELECT_ARRIVAL: null,
   TIMES: null,
+  ABOUT: null,
 });
 
 module.exports.getRouteWithParams = function(id, params) {

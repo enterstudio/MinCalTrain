@@ -1,6 +1,5 @@
 var React = require('react-native');
 var {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -12,6 +11,7 @@ var Routes = require('../constants/Routes');
 var Stations = require('../constants/Stations');
 var TimeTables = require('../time_tables/TimeTables');
 var ListRowView = require('../views/ListRowView');
+var BorderedScrollView = require('../views/BorderedScrollView');
 
 var StationSelectView = React.createClass({
 
@@ -25,14 +25,14 @@ var StationSelectView = React.createClass({
       new Date()
     );
     return (
-      <ScrollView 
+      <BorderedScrollView 
         style={styles.container}>
         <View style={styles.stationContainer}>
           {todayStations.map(
             (station) => this.renderStationSelector(station),
           )}
         </View>
-      </ScrollView>
+      </BorderedScrollView>
     );
   },
 

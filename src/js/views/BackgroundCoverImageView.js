@@ -25,9 +25,24 @@ var IMAGES = {
       color: '#555'
     },
   },
+  'singapore': {
+    source: require('image!singapore'),
+    attribution: 'Peter Cottle',
+    style: {
+      opacity: 0,
+    }
+  }
 };
 
 var BackgroundCoverImageView = React.createClass({
+
+  statics: {
+    getImageAuthors: function() {
+      return Object.keys(IMAGES).map(function(imageName) {
+        return IMAGES[imageName].attribution;
+      });
+    },
+  },
 
   propTypes: {
     imageName: React.PropTypes.string.isRequired,

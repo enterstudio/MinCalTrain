@@ -1,8 +1,6 @@
-var assign = require('object-assign');
 var moment = require('moment');
 var React = require('react-native');
 var {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -19,6 +17,7 @@ var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
 var ListRowView = require('../views/ListRowView');
 var Stations = require('../constants/Stations');
+var BorderedScrollView = require('../views/BorderedScrollView');
 var BackgroundCoverView = require('../views/BackgroundCoverView');
 
 var TimesView = React.createClass({
@@ -82,11 +81,11 @@ var TimesView = React.createClass({
           </EmojiRowEndView>
         </CallToActionRowView>
         {this.renderHeader(routeTimes)}
-        <ScrollView style={styles.scrollView}>
+        <BorderedScrollView>
           <View style={styles.scrollContainer}>
             {routes.map(route => this.renderRoute(route, routeTimes))}
           </View>
-        </ScrollView>
+        </BorderedScrollView>
       </View>
     );
   },
@@ -158,7 +157,6 @@ var TimesView = React.createClass({
   },
 
   renderTimeRange: function(routeTimes) {
-    console.log(routeTimes);
     if (routeTimes.length <= 1) {
       return (
         <Text style={styles.headerText}>
@@ -244,9 +242,6 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    flex: 1,
-  },
-  scrollView: {
     flex: 1,
   },
   boldText: {

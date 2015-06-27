@@ -7,4 +7,7 @@ module.exports = {
   HORIZONTAL_TRAFFIC_LIGHT: '\ud83d\udea5',
   RUNNER: '\ud83c\udfc3',
   FACE_SCARED: '\ud83d\ude31',
+  TEARS_OF_JOY: '\ud83d\ude02',
+  NAIL_POLISH: '\ud83d\udc85',
+  FACE_MASSAGE: '\ud83d\udc86',
 };
