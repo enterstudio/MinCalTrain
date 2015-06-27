@@ -8,6 +8,16 @@ var WeekdayNorthBound =
 var WeekdaySouthBound =
   require('../time_tables/WeekdaySouthBound');
 
+var SaturdayNorthBound =
+  require('../time_tables/SaturdayNorthBound');
+var SaturdaySouthBound =
+  require('../time_tables/SaturdaySouthBound');
+
+var SundayNorthBound =
+  require('../time_tables/SundayNorthBound');
+var SundaySouthBound =
+  require('../time_tables/SundaySouthBound');
+
 var _stopsForDay = {};
 function _stripNonDigits(string) {
   return string.replace(/[^0-9]/g, '');
@@ -107,9 +117,15 @@ var TimeTables = {
   getScheduleForDay: function(date) {
     var day = date.getDay();
     if (day === 0) {
-      throw new Error('Sunday not done yet');
+      return {
+        northBound: SundayNorthBound,
+        southBound: SundaySouthBound,
+      };
     } else if (day === 6) {
-      throw new Error('Saturday not done yet');
+      return {
+        northBound: SaturdayNorthBound,
+        southBound: SaturdaySouthBound,
+      };
     }
 
     return {

@@ -1,4 +1,5 @@
 var React = require('react-native');
+var Viewport = require('react-native-viewport');
 var {
   StyleSheet,
   Image,
