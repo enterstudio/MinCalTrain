@@ -52,7 +52,7 @@ var TimesView = React.createClass({
       stopTwoID
     );
 
-    if (!routes) {
+    if (!routes || !routes.length) {
       return (
         <View style={styles.noStopsText}>
           <Text>
@@ -62,7 +62,7 @@ var TimesView = React.createClass({
             routes for the stations you selected.
             This usually doesn{"'"}t happen --
             are you sure CalTrain stops at those
-            stations?
+            stations after this time?
           </Text>
         </View>
       );
