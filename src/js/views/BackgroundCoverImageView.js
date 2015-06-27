@@ -1,5 +1,4 @@
 var React = require('react-native');
-var Viewport = require('react-native-viewport');
 var {
   StyleSheet,
   Image,
@@ -50,9 +49,6 @@ var BackgroundCoverImageView = React.createClass({
   },
 
   render: function() {
-    Viewport.getDimensions((dimensions) => {
-      console.log(dimensions);
-    });
     var imageData = IMAGES[this.props.imageName];
     if (!imageData) {
       throw new Error('did not find image ' + this.props.imageName);
