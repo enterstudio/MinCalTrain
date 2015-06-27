@@ -29,7 +29,7 @@ var IMAGES = {
     source: require('image!singapore'),
     attribution: 'Peter Cottle',
     style: {
-      opacity: 0,
+      color: '#DDD'
     }
   }
 };
@@ -82,7 +82,8 @@ var styles = StyleSheet.create({
   },
   attribution: {
     position: 'absolute',
-    right: 0,
+    right: 4,
+    top: 4,
   },
   backgroundImage: {
     width: 380,

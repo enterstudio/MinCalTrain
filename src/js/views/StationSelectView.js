@@ -77,7 +77,7 @@ var StationSelectView = React.createClass({
       <TouchableHighlight
         style={styles.aboutContainer}
         onPress={this.props.onAboutPress}
-        underlayColor={Colors.LIOHUA}>
+        underlayColor={Colors.AQUA_BURST}>
         <Text>
           About
         </Text>
