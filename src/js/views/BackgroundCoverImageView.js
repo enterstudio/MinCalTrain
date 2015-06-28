@@ -60,6 +60,7 @@ var BackgroundCoverImageView = React.createClass({
           accessible={false}
           style={styles.backgroundImage}
           source={imageData.source}
+          resizeMode="contain"
         />
         <View style={styles.attribution}>
           <Text style={[
@@ -86,11 +87,11 @@ var styles = StyleSheet.create({
     top: 4,
   },
   backgroundImage: {
-    width: 380,
-    height: 650,
     position: 'absolute',
     top: 0,
     left: 0,
+    right: 0,
+    bottom: 0,
   },
 });
 

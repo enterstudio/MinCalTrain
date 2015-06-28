@@ -69,8 +69,6 @@ var TimesView = React.createClass({
     }
 
     var routeTimes = TimeTables.getSortedRouteTimes(routes);
-    // TODO -- some kind of: header like
-    // Heading FROM xx TO xx
     return (
       <View style={styles.metaContainer}>
         <CallToActionRowView
