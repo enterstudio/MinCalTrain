@@ -4,3 +4,5 @@ TODO
 [ ] Last 3 stations feature
 [ ] Consolidate Date.now() to one place
 [ ] Stations that cant be selected anymore for the day
+[ ] Font size and margin
+[ ] GitHub link for feedback
