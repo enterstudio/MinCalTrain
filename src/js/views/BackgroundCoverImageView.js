@@ -63,7 +63,6 @@ var BackgroundCoverImageView = React.createClass({
             imageData.imageStyle || {}
           ]}
           source={imageData.source}
-          resizeMode="contain"
         />
         <View style={styles.attribution}>
           <Text style={[
