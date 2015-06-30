@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   callToActionText: {
-    color: '#111'
+    color: '#EEE'
   },
 });
 

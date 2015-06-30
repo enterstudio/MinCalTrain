@@ -45,7 +45,7 @@ var AboutView = React.createClass({
                 {Emoji.NAIL_POLISH}
               </Text>
             </View>
-            <Text>
+            <Text style={styles.leftText}>
               Engineering:
             </Text>
             <View style={styles.centeredText}>
@@ -53,7 +53,7 @@ var AboutView = React.createClass({
                 Peter Cottle
               </Text>
             </View>
-            <Text>
+            <Text style={[styles.leftText, styles.textMargin]}>
               Data Scientist and Logo Designer:
             </Text>
             <View style={styles.centeredText}>
@@ -61,7 +61,7 @@ var AboutView = React.createClass({
                 Connie Qian
               </Text>
             </View>
-            <Text>
+            <Text style={styles.leftText}>
               Photos:
             </Text>
             <View style={styles.centeredText}>
@@ -69,7 +69,7 @@ var AboutView = React.createClass({
                 author => this.renderAuthor(author)
               )}
             </View>
-            <Text>
+            <Text style={styles.leftText}>
               Feedback:
             </Text>
             <TouchableHighlight
@@ -83,6 +83,10 @@ var AboutView = React.createClass({
                 </Text>
               </View>
             </TouchableHighlight>
+            <Text style={styles.subText}>
+              This project is Open Source! Feel free to fork it
+              and send improvements :D
+            </Text>
           </View>
         </BackgroundCoverView>
       </View>
@@ -91,7 +95,7 @@ var AboutView = React.createClass({
 
   renderAuthor: function(authorName) {
     return (
-      <Text key={authorName}>
+      <Text style={styles.authorNameText} key={authorName}>
         {authorName}
       </Text>
     );
@@ -102,11 +106,22 @@ var AboutView = React.createClass({
 var styles = StyleSheet.create({
   boldText: {
     fontWeight: 'bold',
+    fontSize: 16,
+  },
+  leftText: {
+    fontSize: 14,
+  },
+  authorNameText: {
+    fontSize: 14,
+  },
+  textMargin: {
+    marginTop: 4,
+    marginBottom: 4
   },
   aboutText: {
     padding: 4,
-    fontSize: 16,
-    color: '#EEE'
+    fontSize: 20,
+    color: '#111'
   },
   centeredText: {
     flex: 1,
@@ -116,6 +131,11 @@ var styles = StyleSheet.create({
   },
   metaContainer: {
     flex: 1,
+  },
+  subText: {
+    paddingTop: 8,
+    fontSize: 10,
+    color: '#333'
   },
   mainText: {
     backgroundColor: Colors.SHE_DRESSED_ME,

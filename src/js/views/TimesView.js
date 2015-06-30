@@ -78,6 +78,7 @@ var TimesView = React.createClass({
           </EmojiRowEndView>
         </CallToActionRowView>
         {this.renderHeader(routeTimes)}
+        <View style={styles.divider} />
         <BorderedScrollView>
           <View style={styles.scrollContainer}>
             {routes.map(route => this.renderRoute(route, routeTimes))}
@@ -156,13 +157,13 @@ var TimesView = React.createClass({
   renderTimeRange: function(routeTimes) {
     if (routeTimes.length <= 1) {
       return (
-        <Text style={styles.headerText}>
+        <Text style={styles.subHeaderText}>
           {formatTimeAmount.formatMinutesAbbrev(routeTimes[0])}
         </Text>
       );
     }
     return (
-      <Text style={styles.headerText}>
+      <Text style={styles.subHeaderText}>
         {formatTimeAmount.formatMinutesAbbrev(routeTimes[0])}
         {' - '}
         {formatTimeAmount.formatMinutesAbbrev(routeTimes[routeTimes.length - 1])}
@@ -224,10 +225,11 @@ var styles = StyleSheet.create({
     color: '#CCC'
   },
   infoText: {
-    color: '#EEE'
+    color: '#EEE',
+    fontSize: 18,
   },
   subText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#CCC'
   },
   rowContainer: {
@@ -251,9 +253,17 @@ var styles = StyleSheet.create({
     paddingRight: 12,
   },
   headerText: {
-    fontSize: 12,
+    fontSize: 20,
     color: '#EEE'
   },
+  subHeaderText: {
+    fontSize: 14,
+    color: '#EEE'
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#000'
+  }
 });
 
 module.exports = TimesView;
