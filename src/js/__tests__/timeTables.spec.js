@@ -121,6 +121,11 @@ describe('time tables', function() {
   });
 
   it('has a schedule for all days', function() {
+    // This assures we have cached the results on require
+    TimeTables.getStationsForDayImpl = function() {
+      throw new Error('uncached');
+    };
+
     for (var day = 0; day < 6; day++) {
       var date = TimeTables._getDateForDay(day);
       expect(TimeTables.getScheduleForDay(date))

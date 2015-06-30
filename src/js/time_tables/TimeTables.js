@@ -141,6 +141,12 @@ var TimeTables = {
       return _stopsForDay[day];
     }
 
+    var result = this.getStationsForDayImpl(date);
+    _stopsForDay[day] = result;
+    return result;
+  },
+
+  getStationsForDayImpl: function(date) {
     // not all stations are stopped at for all days,
     // so here we loop through and figure out which
     // stations can actually be selected.
@@ -166,8 +172,6 @@ var TimeTables = {
         result.push(station);
       }
     });
-
-    _stopsForDay[day] = result;
     return result;
   },
 
