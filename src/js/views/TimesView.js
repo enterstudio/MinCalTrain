@@ -11,6 +11,7 @@ var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
 var TrainTypes = require('../constants/TrainTypes');
 var TripStore = require('../stores/TripStore');
+var TimeStore = require('../stores/TimeStore');
 var TimeTables = require('../time_tables/TimeTables');
 var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
@@ -46,7 +47,7 @@ var TimesView = React.createClass({
     var stopOneID = TripStore.getDepartureStationID();
     var stopTwoID = TripStore.getArrivalStationID();
     var routes = TimeTables.getRoutesForTrip(
-      new Date(),
+      TimeStore.getDesiredDepartureDate(),
       stopOneID,
       stopTwoID
     );

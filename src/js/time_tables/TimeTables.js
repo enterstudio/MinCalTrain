@@ -220,7 +220,25 @@ var TimeTables = {
   _getDateForTimeString: _getDateForTimeString,
   _getDirectionForStops: _getDirectionForStops,
   _getOptionsForTrip: _getOptionsForTrip,
+  _getDateForDay: function(day) {
+    var date = new Date();
+    // Hack -- get our desired day by just adding
+    // 1 to the date
+    while (date.getDay() !== day) {
+      date.setDate(date.getDate() + 1);
+    }
+    return date;
+  },
 
 };
+
+/**
+ * Populate cache for getStationsForDay so we dont
+ * have to compute on UI action.
+ */
+for (var i = 0; i <= 6; i++) {
+  var d = TimeTables._getDateForDay(i);
+  TimeTables.getStationsForDay(d);
+}
 
 module.exports = TimeTables;

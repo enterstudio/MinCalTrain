@@ -3,7 +3,7 @@ TODO
 [ ] Handle ~1am cases
 [ ] Last 3 stations feature
 [ ] Stations that cant be selected anymore for the day (improve error message)
-[ ] Consolidate Date.now() to one place
+[ ] perf investigation for tapping
 
 BLOCKED:
 ~~~~~~~
@@ -13,3 +13,4 @@ DONE:
 ^^^^^^^^
 [x] GitHub link for feedback
 [x] Font size and margin
+[x] Consolidate Date.now() to one place

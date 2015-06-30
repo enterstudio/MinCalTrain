@@ -10,6 +10,7 @@ var Colors = require('../constants/Colors');
 var Routes = require('../constants/Routes');
 var Stations = require('../constants/Stations');
 var TimeTables = require('../time_tables/TimeTables');
+var TimeStore = require('../stores/TimeStore');
 var ListRowView = require('../views/ListRowView');
 var BorderedScrollView = require('../views/BorderedScrollView');
 
@@ -24,7 +25,7 @@ var StationSelectView = React.createClass({
 
   render: function() {
     var todayStations = TimeTables.getStationsForDay(
-      new Date()
+      TimeStore.getDesiredDepartureDate(),
     );
     return (
       <BorderedScrollView 

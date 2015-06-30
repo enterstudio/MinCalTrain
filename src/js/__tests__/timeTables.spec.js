@@ -31,16 +31,6 @@ var _stopLoop = function(callback) {
   });
 };
 
-var _getDateForDay = function(day) {
-  var date = new Date();
-  // Hack -- get our desired day by just adding
-  // 1 to the date
-  while (date.getDay() !== day) {
-    date.setDate(date.getDate() + 1);
-  }
-  return date;
-};
-
 describe('time tables', function() {
   it('each has an ID and type', function() {
     _trainLoop(function(train) {
@@ -132,14 +122,7 @@ describe('time tables', function() {
 
   it('has a schedule for all days', function() {
     for (var day = 0; day < 6; day++) {
-      var date = _getDateForDay(day);
-      if (day === 0 || day === 1) {
-        expect(function() {
-          TimeTables.getScheduleForDay(date);
-        }).toThrow();
-        return;
-      }
-
+      var date = TimeTables._getDateForDay(day);
       expect(TimeTables.getScheduleForDay(date))
         .toBeTruthy();
     }
