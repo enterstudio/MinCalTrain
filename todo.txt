@@ -5,4 +5,6 @@ TODO
 [ ] Consolidate Date.now() to one place
 [ ] Stations that cant be selected anymore for the day
 [ ] Font size and margin
-[ ] GitHub link for feedback
+[ ] underlined text (when ready)
+
+[x] GitHub link for feedback

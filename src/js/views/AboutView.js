@@ -5,7 +5,10 @@ var {
   Text,
   TouchableHighlight,
   View,
+  LinkingIOS,
 } = React;
+
+var GITHUB_URL = 'https://github.com/pcottle/MinCalTrain';
 
 var Colors = require('../constants/Colors');
 var Emoji = require('../constants/Emoji');
@@ -51,7 +54,7 @@ var AboutView = React.createClass({
               </Text>
             </View>
             <Text>
-              Data Manipulation + Logo Design:
+              Data Scientist and Logo Designer:
             </Text>
             <View style={styles.centeredText}>
               <Text style={styles.boldText}>
@@ -66,6 +69,20 @@ var AboutView = React.createClass({
                 author => this.renderAuthor(author)
               )}
             </View>
+            <Text>
+              Feedback:
+            </Text>
+            <TouchableHighlight
+              onPress={() => {
+                LinkingIOS.openURL(GITHUB_URL);
+              }}
+              underlayColor={Colors.LIOHUA}>
+              <View style={styles.centeredText}>
+                <Text style={styles.boldText}>
+                  GitHub Link
+                </Text>
+              </View>
+            </TouchableHighlight>
           </View>
         </BackgroundCoverView>
       </View>

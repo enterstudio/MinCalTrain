@@ -38,10 +38,11 @@ var styles = StyleSheet.create({
     backgroundColor: Colors.DEEPER,
   },
   textContainer: {
-    padding: 16,
+    padding: 16
   },
   text: {
-    color: '#EEE'
+    color: '#EEE',
+    fontSize: 20
   },
 });
 

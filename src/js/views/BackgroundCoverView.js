@@ -34,9 +34,9 @@ var styles = StyleSheet.create({
   metaContainer: {
     flex: 1,
     opacity: 0.9,
-    marginLeft: 40,
-    marginRight: 40,
-    marginTop: 40,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 20,
   },
 });
 
