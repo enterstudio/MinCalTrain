@@ -1,7 +1,6 @@
 TODO
 ====
 [ ] Handle ~1am cases
-[ ] Last 3 stations feature
 [ ] Stations that cant be selected anymore for the day (improve error message)
 
 BLOCKED:
@@ -11,6 +10,7 @@ BLOCKED:
 DONE:
 ^^^^^^^^
 [x] GitHub link for feedback
+[x] Last 3 stations feature
 [x] perf investigation for tapping
 [x] Font size and margin
 [x] Consolidate Date.now() to one place

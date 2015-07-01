@@ -12,5 +12,5 @@ module.exports = {
   FACE_MASSAGE: '\ud83d\udc86',
   REVOLVING_HEARTS: '\ud83d\udc9e',
   HEART_EYES: '\ud83d\ude0d',
-  CROSS_MARK: '\u274c',
+  MINUS: '\u2796'
 };

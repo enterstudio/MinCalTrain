@@ -89,9 +89,9 @@ var DepartureSelectView = React.createClass({
   },
 
   renderFavoriteTrip: function(trip) {
-    var key = trip.departureID + trip.arrivalID;
     return (
       <TouchableHighlight
+        key={key}
         onPress={() => {
           TripActions.setFavoritesGuard(true);
           TripActions.selectDeparture(trip.departureID);
@@ -103,7 +103,7 @@ var DepartureSelectView = React.createClass({
         }}
         underlayColor={Colors.LIOHUA}>
         <View>
-          <ListRowView key={key}>
+          <ListRowView>
             <Text style={styles.favText}>
               <Text style={styles.boldText}>
                 {Stations.getStationName(trip.departureID)}
@@ -114,6 +114,20 @@ var DepartureSelectView = React.createClass({
               </Text>
             </Text>
           </ListRowView>
+          <View style={styles.xoutButton}>
+            <TouchableHighlight
+              underlayColor="#222"
+              onPress={() => {
+                TripActions.removeFavoriteTrip(
+                  trip.departureID,
+                  trip.arrivalID
+                );
+              }}>
+              <Text style={styles.crossMark}>
+                {Emoji.MINUS}
+              </Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -122,6 +136,12 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  xoutButton: {
+    position: 'absolute',
+    top: 12,
+    right: 10,
+    opacity: 0.7
+  },
   favText: {
     fontSize: 14,
   },
