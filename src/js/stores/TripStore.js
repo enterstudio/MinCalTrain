@@ -47,6 +47,16 @@ function _saveTripsToStorage() {
   );
 }
 
+function _removeFavoriteTrip(trip) {
+  if (!_hasFavoriteTrip(trip)) {
+    throw new Error('bad trip', trip);
+  }
+
+  _favoriteTrips = _favoriteTrips.filter(function(thisTrip) {
+    return !_isSameTrip(thisTrip, trip);
+  });
+}
+
 function _loadTripsFromStorage(cb) {
   var AsyncStorage = _getAsyncStorage();
   AsyncStorage.getItem(
@@ -72,13 +82,8 @@ function _tryToSaveFavoriteTripsImpl() {
   // Alright both selected -- lets see if we have it...
   if (_hasFavoriteTrip(thisTrip)) {
     // Simply move it to the front
-    var newFavoriteTrips = [thisTrip];
-    newFavoriteTrips = newFavoriteTrips.concat(
-      _favoriteTrips.filter(function(trip) {
-        return !_isSameTrip(trip, thisTrip);
-      })
-    );
-    _favoriteTrips = newFavoriteTrips;
+    _removeFavoriteTrip(thisTrip);
+    _favoriteTrips.unshift(thisTrip);
   } else {
     // add it at the front and slice
     _favoriteTrips.unshift(thisTrip);
@@ -137,11 +142,19 @@ AppConstants.StoreSubscribePrototype,
         }
         break;
       case ActionTypes.SET_FAVORITES_GUARD:
-        console.log('getting seting', action.favoritesGuard);
         _favoritesGuard = action.favoritesGuard;
         break;
       case ActionTypes.SELECT_DEPARTURE:
         _departureID = _validateStationID(action.stationID);
+        shouldInform = true;
+        break;
+      case ActionTypes.REMOVE_FAVORITE:
+        _removeFavoriteTrip(action.trip);
+        try {
+          _saveTripsToStorage();
+        } catch (error) {
+        }
+
         shouldInform = true;
         break;
       case ActionTypes.SELECT_ARRIVAL:

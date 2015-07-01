@@ -122,7 +122,7 @@ describe('TripStore', function() {
     TripActions.selectDeparture('san-francisco');
     TripActions.selectArrival('22nd-street');
 
-    // only 3
+    // only max number
     expect(JSON.stringify(TripStore.getFavoriteTrips()))
       .toBe(JSON.stringify([
         {
@@ -135,6 +135,25 @@ describe('TripStore', function() {
       ]));
 
     TripActions.clearFavoriteTrips();
+    expect(JSON.stringify(TripStore.getFavoriteTrips()))
+      .toBe(JSON.stringify([]));
+  });
+
+  it('can remove trips too', function() {
+    TripActions.clearFavoriteTrips();
+    TripActions.selectDeparture('san-francisco');
+    TripActions.selectArrival('22nd-street');
+
+    // and can remove too
+    expect(JSON.stringify(TripStore.getFavoriteTrips()))
+      .toBe(JSON.stringify([
+        {
+          departureID: 'san-francisco',
+          arrivalID: '22nd-street'
+        }
+      ]));
+
+    TripActions.removeFavoriteTrip('san-francisco', '22nd-street');
     expect(JSON.stringify(TripStore.getFavoriteTrips()))
       .toBe(JSON.stringify([]));
   });

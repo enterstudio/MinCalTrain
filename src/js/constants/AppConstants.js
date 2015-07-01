@@ -20,7 +20,8 @@ module.exports = {
     SELECT_DEPARTURE: null,
     SELECT_ARRIVAL: null,
     CLEAR_FAVORITES: null,
-    SET_FAVORITES_GUARD: null
+    SET_FAVORITES_GUARD: null,
+    REMOVE_FAVORITE: null,
   }),
 
   PayloadSources: keyMirror({

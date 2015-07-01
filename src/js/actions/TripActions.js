@@ -20,6 +20,16 @@ var TripActions = {
     });
   },
 
+  removeFavoriteTrip: function(departureID, arrivalID) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.REMOVE_FAVORITE,
+      trip: {
+        departureID: departureID,
+        arrivalID: arrivalID
+      }
+    });
+  },
+
   setFavoritesGuard: function(guardValue) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SET_FAVORITES_GUARD,
