@@ -7,6 +7,7 @@ var {
   TouchableHighlight,
 } = React;
 
+var Analytics = require('../util/Analytics');
 var Emoji = require('../constants/Emoji');
 var Routes = require('../constants/Routes');
 var StationSelectView = require('../views/StationSelectView');
@@ -28,6 +29,7 @@ var DepartureSelectView = React.createClass({
 
   componentDidMount: function() {
     TripStore.subscribe(() => this.forceUpdate());
+    Analytics.logOpen();
   },
 
   componentDidUnmount: function() {
