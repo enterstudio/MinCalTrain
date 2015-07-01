@@ -17,6 +17,7 @@ var EmojiRowEndView = require('../views/EmojiRowEndView');
 var CallToActionRowView = require('../views/CallToActionRowView');
 var ListRowView = require('../views/ListRowView');
 var Stations = require('../constants/Stations');
+var Analytics = require('../util/Analytics');
 var BorderedScrollView = require('../views/BorderedScrollView');
 var BackgroundCoverView = require('../views/BackgroundCoverView');
 
@@ -24,6 +25,10 @@ var TimesView = React.createClass({
 
   propTypes: {
     navigator: React.PropTypes.object.isRequired,
+  },
+
+  componentDidMount: function() {
+    Analytics.logChoseTrip();
   },
 
   render: function() {

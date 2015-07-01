@@ -14,3 +14,4 @@ DONE:
 [x] perf investigation for tapping
 [x] Font size and margin
 [x] Consolidate Date.now() to one place
+[x] Analytics
