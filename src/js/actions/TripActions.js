@@ -13,6 +13,12 @@ var TripActions = {
     });
   },
 
+  clearFavoriteTrips: function() {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.CLEAR_FAVORITES
+    });
+  },
+
   selectArrival: function(stationID) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_ARRIVAL,

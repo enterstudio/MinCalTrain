@@ -115,6 +115,10 @@ describe('TripStore', function() {
           arrivalID: 'redwood-city'
         }
       ]));
+
+    TripActions.clearFavoriteTrips();
+    expect(JSON.stringify(TripStore.getFavoriteTrips()))
+      .toBe(JSON.stringify([]));
   });
 
   it('prevents bad station IDs', function() {

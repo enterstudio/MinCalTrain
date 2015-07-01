@@ -46,6 +46,22 @@ function _saveTripsToStorage() {
   );
 }
 
+function _loadTripsFromStorage() {
+  var AsyncStorage = _getAsyncStorage();
+  AsyncStorage.getItem(
+    FAVORITE_TRIPS_KEY
+  ).then(function(itemString) {
+    var trips = JSON.parse(itemString);
+    _favoriteTrips = trips;
+  });
+}
+
+try {
+  _loadTripsFromStorage();
+} catch (error) {
+  console.log('could not load from storage');
+}
+
 function _tryToSaveFavoriteTripsImpl() {
   if (_arrivalID === null || _departureID === null) {
     // Have not selected yet
@@ -116,6 +132,14 @@ AppConstants.StoreSubscribePrototype,
     var shouldInform = false;
 
     switch (action.type) {
+      case ActionTypes.CLEAR_FAVORITES:
+        _favoriteTrips = [];
+        shouldInform = true;
+        try {
+          _saveTripsToStorage();
+        } catch (error) {
+        }
+        break;
       case ActionTypes.SELECT_DEPARTURE:
         _departureID = _validateStationID(action.stationID);
         shouldInform = true;
