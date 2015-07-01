@@ -19,7 +19,8 @@ module.exports = {
   ActionTypes: keyMirror({
     SELECT_DEPARTURE: null,
     SELECT_ARRIVAL: null,
-    CLEAR_FAVORITES: null
+    CLEAR_FAVORITES: null,
+    SET_FAVORITES_GUARD: null
   }),
 
   PayloadSources: keyMirror({

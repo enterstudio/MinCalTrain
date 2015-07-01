@@ -13,16 +13,23 @@ var TripActions = {
     });
   },
 
-  clearFavoriteTrips: function() {
-    AppDispatcher.handleViewAction({
-      type: ActionTypes.CLEAR_FAVORITES
-    });
-  },
-
   selectArrival: function(stationID) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_ARRIVAL,
       stationID: stationID
+    });
+  },
+
+  setFavoritesGuard: function(guardValue) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SET_FAVORITES_GUARD,
+      favoritesGuard: guardValue
+    });
+  },
+
+  clearFavoriteTrips: function() {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.CLEAR_FAVORITES
     });
   },
 };

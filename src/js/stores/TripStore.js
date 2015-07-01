@@ -9,12 +9,13 @@ var Stations = require('../constants/Stations');
 var STATIONS_BY_ID = Stations.__getStationsByID();
 
 var ActionTypes = AppConstants.ActionTypes;
-var MAX_NUM_FAVORITE_TRIPS = 3;
+var MAX_NUM_FAVORITE_TRIPS = 2;
 var FAVORITE_TRIPS_KEY = 'favorite_trips';
 
 var _departureID = null;
 var _arrivalID = null;
 var _favoriteTrips = [];
+var _favoritesGuard = false;
 
 // We have this giant hack since this code needs to
 // run in jasmine tests as well
@@ -46,20 +47,15 @@ function _saveTripsToStorage() {
   );
 }
 
-function _loadTripsFromStorage() {
+function _loadTripsFromStorage(cb) {
   var AsyncStorage = _getAsyncStorage();
   AsyncStorage.getItem(
     FAVORITE_TRIPS_KEY
   ).then(function(itemString) {
     var trips = JSON.parse(itemString);
-    _favoriteTrips = trips;
+    _favoriteTrips = trips.slice(0, MAX_NUM_FAVORITE_TRIPS);
+    cb();
   });
-}
-
-try {
-  _loadTripsFromStorage();
-} catch (error) {
-  console.log('could not load from storage');
 }
 
 function _tryToSaveFavoriteTripsImpl() {
@@ -140,13 +136,21 @@ AppConstants.StoreSubscribePrototype,
         } catch (error) {
         }
         break;
+      case ActionTypes.SET_FAVORITES_GUARD:
+        console.log('getting seting', action.favoritesGuard);
+        _favoritesGuard = action.favoritesGuard;
+        break;
       case ActionTypes.SELECT_DEPARTURE:
         _departureID = _validateStationID(action.stationID);
         shouldInform = true;
         break;
       case ActionTypes.SELECT_ARRIVAL:
         _arrivalID = _validateStationID(action.stationID);
-        _tryToSaveFavoriteTrips();
+        if (!_favoritesGuard) {
+          // Only set favorites when we dont have
+          // the guard
+          _tryToSaveFavoriteTrips();
+        } 
         shouldInform = true;
         break;
     }
@@ -157,5 +161,13 @@ AppConstants.StoreSubscribePrototype,
   })
 
 });
+
+try {
+  _loadTripsFromStorage(function() {
+    TripStore.emit(AppConstants.CHANGE_EVENT);
+  });
+} catch (error) {
+  console.warn('could not load from storage');
+}
 
 module.exports = TripStore;

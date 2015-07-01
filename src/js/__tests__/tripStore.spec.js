@@ -25,6 +25,30 @@ describe('TripStore', function() {
       ]));
   });
 
+  it('respects the guard', function() {
+    TripActions.setFavoritesGuard(true);
+    TripActions.clearFavoriteTrips();
+
+    TripActions.selectDeparture('palo-alto');
+    TripActions.selectArrival('redwood-city');
+
+    expect(JSON.stringify(TripStore.getFavoriteTrips()))
+      .toBe(JSON.stringify([]));
+    TripActions.setFavoritesGuard(false);
+
+    TripActions.selectDeparture('palo-alto');
+    TripActions.selectArrival('redwood-city');
+
+    expect(JSON.stringify(TripStore.getFavoriteTrips()))
+      .toBe(JSON.stringify([
+        {
+          departureID: 'palo-alto',
+          arrivalID: 'redwood-city'
+        }
+      ]));
+    TripActions.clearFavoriteTrips();
+  });
+
   it('handles multiple fav trips', function() {
     TripActions.selectDeparture('palo-alto');
     TripActions.selectArrival('redwood-city');
@@ -92,9 +116,6 @@ describe('TripStore', function() {
         }, {
           departureID: 'palo-alto',
           arrivalID: 'redwood-city'
-        }, {
-          departureID: 'san-francisco',
-          arrivalID: 'palo-alto'
         }
       ]));
 
@@ -110,9 +131,6 @@ describe('TripStore', function() {
         }, {
           departureID: 'san-francisco',
           arrivalID: 'california-ave'
-        }, {
-          departureID: 'palo-alto',
-          arrivalID: 'redwood-city'
         }
       ]));
 
