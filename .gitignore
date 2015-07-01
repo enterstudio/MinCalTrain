@@ -9,7 +9,6 @@ build/bundle.*.js
 build/main.*.css
 screens
 FontAwesome-Vectors.pdf
-index.html
 iOS/main.jsbundle
 
 # Vim swaps
