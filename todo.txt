@@ -1,7 +1,6 @@
 TODO
 ====
 [ ] Handle ~1am cases
-[ ] Stations that cant be selected anymore for the day (improve error message)
 
 BLOCKED:
 ~~~~~~~
@@ -9,6 +8,7 @@ BLOCKED:
 
 DONE:
 ^^^^^^^^
+[x] Stations that cant be selected anymore for the day (improve error message)
 [x] GitHub link for feedback
 [x] Last 3 stations feature
 [x] perf investigation for tapping

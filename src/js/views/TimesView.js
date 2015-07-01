@@ -27,12 +27,12 @@ var TimesView = React.createClass({
   },
 
   render: function() {
-    var stopOneID = TripStore.getDepartureStationID();
-    var stopTwoID = TripStore.getArrivalStationID();
+    var departureID = TripStore.getDepartureStationID();
+    var arrivalID = TripStore.getArrivalStationID();
     // Key by stops so this will refresh in case we change.
     // Another thing to keep in mind is if we have departure
     // time offsets.
-    var key = stopOneID + stopTwoID;
+    var key = departureID + arrivalID;
 
     return (
       <View style={styles.metaContainer} key={key}>
@@ -44,15 +44,42 @@ var TimesView = React.createClass({
   },
 
   renderImpl: function() {
-    var stopOneID = TripStore.getDepartureStationID();
-    var stopTwoID = TripStore.getArrivalStationID();
+    var departureID = TripStore.getDepartureStationID();
+    var arrivalID = TripStore.getArrivalStationID();
     var routes = TimeTables.getRoutesForTrip(
       TimeStore.getDesiredDepartureDate(),
-      stopOneID,
-      stopTwoID
+      departureID,
+      arrivalID
     );
 
-    if (!routes || !routes.length) {
+    if (!routes.length) {
+      // Check if this is just a rando error or we train
+      // would have gone here earlier in the day
+      var todayRoutes = TimeTables.getRoutesForTrip(
+        new Date(moment().startOf('day').format()),
+        departureID,
+        arrivalID
+      );
+      if (todayRoutes.length) {
+        return (
+          <View style={styles.noStopsText}>
+            <Text>
+              Ah
+              {' '}
+              {Emoji.DISAPPOINTED_FACE}
+              {' '}
+              There are no more trains running to
+              {' '}
+              {Stations.getStationName(arrivalID)}
+              {' '}
+              today. Seems like you missed the last one...
+              try tomorrow?
+            </Text>
+          </View>
+        );
+      } 
+
+      // Weird bug -- just explain it
       return (
         <View style={styles.noStopsText}>
           <Text>
@@ -137,17 +164,17 @@ var TimesView = React.createClass({
   },
 
   renderHeader: function(routeTimes) {
-    var stopOneID = TripStore.getDepartureStationID();
-    var stopTwoID = TripStore.getArrivalStationID();
+    var departureID = TripStore.getDepartureStationID();
+    var arrivalID = TripStore.getArrivalStationID();
     return (
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
           <Text style={styles.boldText}>
-            {Stations.getStationName(stopOneID) + ' '}
+            {Stations.getStationName(departureID) + ' '}
           </Text>
           to
           <Text style={styles.boldText}>
-            {' ' + Stations.getStationName(stopTwoID)}
+            {' ' + Stations.getStationName(arrivalID)}
           </Text>
         </Text>
         {this.renderTimeRange(routeTimes)}

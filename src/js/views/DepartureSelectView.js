@@ -89,6 +89,7 @@ var DepartureSelectView = React.createClass({
   },
 
   renderFavoriteTrip: function(trip) {
+    var key = trip.departureID + trip.arrivalID;
     return (
       <TouchableHighlight
         key={key}
