@@ -21,9 +21,9 @@ AppConstants.StoreSubscribePrototype,
 {
   
   getDesiredDepartureDate: function() {
-    // Thursday morning -- 12:00:01 a
-    return new Date(1435820401398);
-    //return new Date();
+    // Thursday morning -- 12:00:01 am
+    // return new Date(1435820401398);
+    return new Date();
   },
 
   dispatchToken: AppDispatcher.register(function(payload) {
