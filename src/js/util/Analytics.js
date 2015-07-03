@@ -21,8 +21,15 @@ function _sendHit(hit) {
     body: hit.toQueryString()
   })
   .catch((data) => console.warn('analytics failed with', data))
-  .then(() => console.log('analytics send succeed'));
-  console.log('analytics sent ', hit.toQueryString());
+  .then(() => {
+    if (__DEV__) {
+      console.log('analytics send succeed');
+    }
+  });
+
+  if (__DEV__) {
+    console.log('analytics sent ', hit.toQueryString());
+  }
 }
 
 var _pending = [];
