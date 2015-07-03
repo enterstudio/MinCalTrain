@@ -114,8 +114,29 @@ function _getOptionsForTrip(date, schedule, stopOneID, stopTwoID) {
 }
 
 var TimeTables = {
+
   getScheduleForDay: function(date) {
     var day = date.getDay();
+    return this._getScheduleForDayNum(day);
+  },
+
+  getScheduleForPreviousDay: function() {
+    var day = date.getDay();
+    if (day === 0) {
+      // return Saturdays schedule
+      return this._getScheduleForDayNum(6);
+    } else if (day === 6) {
+      // For saturday, return any weekday
+      return this._getScheduleForDayNum(1);
+    } else if (day === 1) {
+      // Monday however gets sundays schedule
+      return this._getScheduleForDayNum(0);
+    }
+    // All other weekdays get a weekday
+    return this._getScheduleForDayNum(1);
+  },
+
+  _getScheduleForDayNum: function(day) {
     if (day === 0) {
       return {
         northBound: SundayNorthBound,

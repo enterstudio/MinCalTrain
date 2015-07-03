@@ -21,6 +21,8 @@ AppConstants.StoreSubscribePrototype,
 {
   
   getDesiredDepartureDate: function() {
+    // Thursday morning:
+    return new Date(1435820401398);
     return new Date();
   },
 
