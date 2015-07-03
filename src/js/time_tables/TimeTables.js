@@ -183,6 +183,7 @@ function _getOptionsForTrip(date, schedule, stopOneID, stopTwoID) {
 var TimeTables = {
 
   getScheduleForDay: function(date) {
+    // TODO -- memoize
     var day = date.getDay();
     var thisDaySchedule = this._getScheduleForDayNum(day);
     // So heres the annoying thing -- trains from the previous
