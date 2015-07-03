@@ -51,8 +51,9 @@ var TimesView = React.createClass({
   renderImpl: function() {
     var departureID = TripStore.getDepartureStationID();
     var arrivalID = TripStore.getArrivalStationID();
+    var nowDate = TimeStore.getDesiredDepartureDate();
     var routes = TimeTables.getRoutesForTrip(
-      TimeStore.getDesiredDepartureDate(),
+      nowDate,
       departureID,
       arrivalID
     );
@@ -61,7 +62,7 @@ var TimesView = React.createClass({
       // Check if this is just a rando error or we train
       // would have gone here earlier in the day
       var todayRoutes = TimeTables.getRoutesForTrip(
-        new Date(moment().startOf('day').format()),
+        new Date(moment(nowDate).startOf('day').format()),
         departureID,
         arrivalID
       );
@@ -123,6 +124,7 @@ var TimesView = React.createClass({
 
   renderRoute: function(route, routeTimes) {
     var trainType = route.train.type;
+    var nowDate = TimeStore.getDesiredDepartureDate();
     return (
       <ListRowView
         nonText={true}
@@ -158,7 +160,7 @@ var TimesView = React.createClass({
           <Text style={styles.subText}>
             Leaves 
             {' '}
-            {moment(route.timeLeaving).fromNow()},
+            {moment(route.timeLeaving).from(nowDate)},
             arrives at
             {' '}
             {moment(route.timeArriving).format('h:mm a')}
