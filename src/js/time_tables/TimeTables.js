@@ -58,6 +58,9 @@ function _getDateForTimeString(date, timeString) {
   } else if (_strContains(hoursRaw, '+')) {
     // its actually the NEXT day if we have the +
     hours += 24;
+  } else if (_strContains(hoursRaw, '-')) {
+    // this is actually a time of the previous day...
+    hours -= 24;
   }
   var result = new Date(date.getTime());
 
@@ -66,6 +69,70 @@ function _getDateForTimeString(date, timeString) {
   result.setSeconds(0);
   result.setMilliseconds(0);
   return result;
+}
+
+function _routeGoesIntoNextDay(train) {
+  var seenNext = false;
+  Object.keys(train.stops).forEach(function(stationID) {
+    var timeString = train.stops[stationID];
+    if (_strContains(timeString, '+')) {
+      seenNext = true;
+    }
+  });
+  return seenNext;
+}
+
+function _shiftTimeStringToPreviousDay(timeString) {
+  if (_strContains(timeString, '+')) {
+    return timeString.replace('+', '');
+  }
+  return '-' + timeString;
+}
+
+function _cloneRouteToPreviousDay(train) {
+  var newRoute = {};
+  newRoute.id = train.id;
+  newRoute.type = train.type;
+  newRoute.stops = {};
+
+  Object.keys(train.stops).forEach(function(stationID) {
+    newRoute.stops[stationID] = _shiftTimeStringToPreviousDay(
+      train.stops[stationID]
+    );
+  });
+  return newRoute;
+}
+
+/**
+ * Called on northBound and southBound
+ */
+function _mergeScheduleDirection(prevDayDir, thisDayDir) {
+  var toMerge = [];
+  prevDayDir.forEach(function(train) {
+    if (!_routeGoesIntoNextDay(train)) {
+      return;
+    }
+    toMerge.push(_cloneRouteToPreviousDay(train));
+  });
+
+  for (var i = toMerge.length - 1; i >= 0; i--) {
+    thisDayDir.unshift(toMerge[i]);
+  }
+  // done. dont really need to return it here since its
+  // modified by reference but whatever
+  return thisDayDir;
+}
+
+function _mergePreviousDaysSchedule(prevDaySchedule, thisDaySchedule) {
+  thisDaySchedule.northBound = _mergeScheduleDirection(
+    prevDaySchedule.northBound,
+    thisDaySchedule.northBound
+  );
+  thisDaySchedule.southBound = _mergeScheduleDirection(
+    prevDaySchedule.southBound,
+    thisDaySchedule.southBound
+  );
+  return thisDaySchedule;
 }
 
 function _getDirectionForStops(stopOneID, stopTwoID) {
@@ -117,10 +184,17 @@ var TimeTables = {
 
   getScheduleForDay: function(date) {
     var day = date.getDay();
-    return this._getScheduleForDayNum(day);
+    var thisDaySchedule = this._getScheduleForDayNum(day);
+    // So heres the annoying thing -- trains from the previous
+    // day will also run into this day. So we need to grab
+    // the previous day's schedule as well, grab those trains,
+    // and throw them in with the right time string modifications.
+    var previousDaySchedule = this.getScheduleForPreviousDay(date);
+    //return thisDaySchedule;
+    return _mergePreviousDaysSchedule(previousDaySchedule, thisDaySchedule);
   },
 
-  getScheduleForPreviousDay: function() {
+  getScheduleForPreviousDay: function(date) {
     var day = date.getDay();
     if (day === 0) {
       // return Saturdays schedule
@@ -245,6 +319,9 @@ var TimeTables = {
   _getDateForTimeString: _getDateForTimeString,
   _getDirectionForStops: _getDirectionForStops,
   _getOptionsForTrip: _getOptionsForTrip,
+  _cloneRouteToPreviousDay: _cloneRouteToPreviousDay,
+  _mergeScheduleDirection: _mergeScheduleDirection,
+
   _getDateForDay: function(day) {
     var date = new Date();
     // Hack -- get our desired day by just adding

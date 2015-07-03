@@ -214,6 +214,71 @@ describe('time tables', function() {
     expect(routeTimes[routeTimes.length - 1]).toBe(67);
   });
 
+  it('can clone routes to previous day', function() {
+    var pretendRoute = {
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '11:30pm',
+        'san-francisco': '+1:10am'
+      }
+    };
+
+    var prevDayRoute = TimeTables._cloneRouteToPreviousDay(pretendRoute);
+
+    expect(JSON.stringify(prevDayRoute)).toBe(JSON.stringify({
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '-11:30pm',
+        'san-francisco': '1:10am'
+      }
+    }));
+  });
+
+  it('can merge schedule directions', function() {
+    var thisDayDir = [{
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '4:00am',
+        'san-francisco': '5:00am',
+      }
+    }];
+    var previousDayDir = [{
+      id: 124,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '5:00pm',
+        'san-francisco': '6:00pm',
+      }
+    }, {
+      id: 125,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '9:00pm',
+        'san-francisco': '+1:00am',
+      }
+    }];
+
+    var result = TimeTables._mergeScheduleDirection(previousDayDir, thisDayDir);
+    expect(JSON.stringify(result)).toBe(JSON.stringify([{
+      id: 125,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '-9:00pm',
+        'san-francisco': '1:00am',
+      }
+    }, {
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '4:00am',
+        'san-francisco': '5:00am',
+      }
+    }]));
+  });
+
   it('can filter stations based on the day', function() {
     var allStations = Stations.getAllStations();
 
