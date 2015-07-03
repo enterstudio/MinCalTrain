@@ -55,7 +55,9 @@ function _getDateForTimeString(date, timeString) {
     // handle the am/pm split, but of course 12pm
     // does not need the +12 hours
     hours += 12;
-  } else if (_strContains(hoursRaw, '+')) {
+  }
+
+  if (_strContains(hoursRaw, '+')) {
     // its actually the NEXT day if we have the +
     hours += 24;
   } else if (_strContains(hoursRaw, '-')) {
@@ -115,12 +117,7 @@ function _mergeScheduleDirection(prevDayDir, thisDayDir) {
     toMerge.push(_cloneRouteToPreviousDay(train));
   });
 
-  for (var i = toMerge.length - 1; i >= 0; i--) {
-    thisDayDir.unshift(toMerge[i]);
-  }
-  // done. dont really need to return it here since its
-  // modified by reference but whatever
-  return thisDayDir;
+  return toMerge.concat(thisDayDir.slice(0));
 }
 
 function _mergePreviousDaysSchedule(prevDaySchedule, thisDaySchedule) {
@@ -191,7 +188,6 @@ var TimeTables = {
     // the previous day's schedule as well, grab those trains,
     // and throw them in with the right time string modifications.
     var previousDaySchedule = this.getScheduleForPreviousDay(date);
-    //return thisDaySchedule;
     return _mergePreviousDaysSchedule(previousDaySchedule, thisDaySchedule);
   },
 

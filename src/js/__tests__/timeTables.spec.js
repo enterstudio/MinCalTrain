@@ -12,7 +12,15 @@ var Schedules = {
 };
 
 var STATIONS_BY_ID = Stations.__getStationsByID();
+
 var MONDAY_MORNING = 1433781124337;
+var TUESDAY_MORNING = 1433867524337;
+var THURSDAY_AFTER_MIDNIGHT = 1435820401398;
+
+function _jsonStringify(elem) {
+  // formatting
+  return JSON.stringify(elem, null, 2);
+}
 
 var _trainLoop = function(callback) {
   Object.keys(Schedules).forEach(function(scheduleKey) {
@@ -106,18 +114,25 @@ describe('time tables', function() {
 
   it('can parse timestrings', function() {
     var time = TimeTables._getDateForTimeString(
-      new Date(MONDAY_MORNING),
+      new Date(TUESDAY_MORNING),
       '+12:59am'
     );
     expect(time.toString())
-      .toEqual('Tue Jun 09 2015 00:59:00 GMT-0700 (PDT)');
+      .toEqual('Wed Jun 10 2015 00:59:00 GMT-0700 (PDT)');
 
-    var time = TimeTables._getDateForTimeString(
-      new Date(MONDAY_MORNING),
+    time = TimeTables._getDateForTimeString(
+      new Date(TUESDAY_MORNING),
       '+1:10am'
     );
     expect(time.toString())
-      .toEqual('Tue Jun 09 2015 01:10:00 GMT-0700 (PDT)');
+      .toEqual('Wed Jun 10 2015 01:10:00 GMT-0700 (PDT)');
+
+    time = TimeTables._getDateForTimeString(
+      new Date(TUESDAY_MORNING),
+      '-11:10pm'
+    );
+    expect(time.toString())
+      .toEqual('Mon Jun 08 2015 23:10:00 GMT-0700 (PDT)');
   });
 
   it('has a schedule for all days', function() {
@@ -200,7 +215,7 @@ describe('time tables', function() {
   });
 
   it('can sort route times', function() {
-    var mondayMorning = new Date(MONDAY_MORNING);
+    var mondayMorning = new Date(TUESDAY_MORNING);
     var routes = TimeTables.getRoutesForTrip(
       mondayMorning,
       'palo-alto',
@@ -226,7 +241,7 @@ describe('time tables', function() {
 
     var prevDayRoute = TimeTables._cloneRouteToPreviousDay(pretendRoute);
 
-    expect(JSON.stringify(prevDayRoute)).toBe(JSON.stringify({
+    expect(_jsonStringify(prevDayRoute)).toBe(_jsonStringify({
       id: 123,
       type: 'LOCAL',
       stops: {
@@ -262,7 +277,7 @@ describe('time tables', function() {
     }];
 
     var result = TimeTables._mergeScheduleDirection(previousDayDir, thisDayDir);
-    expect(JSON.stringify(result)).toBe(JSON.stringify([{
+    expect(_jsonStringify(result)).toBe(_jsonStringify([{
       id: 125,
       type: 'LOCAL',
       stops: {
@@ -277,13 +292,91 @@ describe('time tables', function() {
         'san-francisco': '5:00am',
       }
     }]));
+
+    var thisDayDir = [{
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '4:00am',
+        'san-francisco': '5:00am',
+      }
+    }, {
+      id: 1,
+      type: 'BABY_BULLET',
+      stops: {
+        'palo-alto': '6:00am',
+        'san-francisco': '7:00am',
+      }
+    }];
+
+    var previousDayDir = [{
+      id: 124,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '5:00pm',
+        'san-francisco': '6:00pm',
+      }
+    }, {
+      id: 125,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '9:00pm',
+        '22nd-street': '+12:10am',
+        'san-francisco': '+1:00am',
+      }
+    }, {
+      id: 126,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '+1:00am',
+        '22nd-street': '+2:10am',
+        'san-francisco': '+3:00am',
+      }
+    }];
+
+    var result = TimeTables._mergeScheduleDirection(previousDayDir, thisDayDir);
+    expect(_jsonStringify(result)).toBe(_jsonStringify([{
+      id: 125,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '-9:00pm',
+        '22nd-street': '12:10am',
+        'san-francisco': '1:00am',
+      }
+    }, {
+      id: 126,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '1:00am',
+        '22nd-street': '2:10am',
+        'san-francisco': '3:00am',
+      }
+    }, {
+      id: 123,
+      type: 'LOCAL',
+      stops: {
+        'palo-alto': '4:00am',
+        'san-francisco': '5:00am',
+      }
+    }, {
+      id: 1,
+      type: 'BABY_BULLET',
+      stops: {
+        'palo-alto': '6:00am',
+        'san-francisco': '7:00am',
+      }
+    }]));
+  });
+
+  it('can merge in the previou day', function() {
+    var schedule = TimeTables.getScheduleForDay(new Date(THURSDAY_AFTER_MIDNIGHT));
   });
 
   it('can filter stations based on the day', function() {
     var allStations = Stations.getAllStations();
 
     var weekdayStations = TimeTables.getStationsForDay(
-      new Date(MONDAY_MORNING)
+      new Date(TUESDAY_MORNING)
     );
     expect(weekdayStations.length)
       .toBeLessThan(allStations.length, 'weekday has less stations');
