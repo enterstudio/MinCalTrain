@@ -6,7 +6,6 @@ var {
   StyleSheet,
   TouchableHighlight,
 } = React;
-var AnimationExperimental = require('AnimationExperimental');
 
 var Analytics = require('../util/Analytics');
 var Emoji = require('../constants/Emoji');
