@@ -112,13 +112,6 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		D8E7B1191B3F4CA30020BB67 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D8E7B1151B3F4CA30020BB67 /* Viewport.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = Viewport;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -145,7 +138,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		D84A2F611B46EE70006D58D3 /* LaunchImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = LaunchImage.xcassets; path = MinCaltrain/LaunchImage.xcassets; sourceTree = "<group>"; };
-		D8E7B1151B3F4CA30020BB67 /* Viewport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Viewport.xcodeproj; path = "node_modules/react-native-viewport/Viewport.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,7 +284,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D8E7B1151B3F4CA30020BB67 /* Viewport.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302AF1ABCB8E700DB3ED1 /* RCTAdSupport.xcodeproj */,
@@ -333,14 +324,6 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* MinCaltrain.app */,
 				00E356EE1AD99517003FC87E /* MinCaltrainTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D8E7B1161B3F4CA30020BB67 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D8E7B11A1B3F4CA30020BB67 /* libViewport.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,10 +440,6 @@
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
-				{
-					ProductGroup = D8E7B1161B3F4CA30020BB67 /* Products */;
-					ProjectRef = D8E7B1151B3F4CA30020BB67 /* Viewport.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -546,13 +525,6 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D8E7B11A1B3F4CA30020BB67 /* libViewport.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libViewport.a;
-			remoteRef = D8E7B1191B3F4CA30020BB67 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
