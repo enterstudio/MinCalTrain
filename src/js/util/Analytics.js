@@ -20,12 +20,12 @@ function _sendHit(hit) {
     method: 'post',
     body: hit.toQueryString()
   })
-  .catch((data) => console.warn('analytics failed with', data))
   .then(() => {
     if (__DEV__) {
       console.log('analytics send succeed');
     }
-  });
+  })
+  .catch((data) => console.warn('analytics failed with', data));
 
   if (__DEV__) {
     console.log('analytics sent ', hit.toQueryString());
