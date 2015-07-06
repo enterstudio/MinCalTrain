@@ -41,9 +41,11 @@ function _sendScreenView(screenName) {
   }
 
   var screenView = new GAHits.ScreenView(
-    screenName,
+    'MinCalTrain',
     APP_VERSION,
-    APP_KEY
+    APP_KEY,
+    /* installer id */ 1,
+    screenName,
   );
   _sendHit(screenView);
 }
