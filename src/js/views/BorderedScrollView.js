@@ -10,7 +10,9 @@ var BorderedScrollView = React.createClass({
 
   render: function() {
     return (
-      <ScrollView style={[
+      <ScrollView 
+        automaticallyAdjustContentInsets={false}
+        style={[
           styles.scrollView,
           this.props.style
         ]}>
