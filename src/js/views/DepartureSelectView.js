@@ -4,9 +4,9 @@ var {
   Text,
   View,
   StyleSheet,
-  TouchableHighlight,
   PanResponder,
   Animated,
+  LayoutAnimation,
 } = React;
 
 var Analytics = require('../util/Analytics');
@@ -23,60 +23,102 @@ var BackgroundCoverView = require('../views/BackgroundCoverView');
 var ListRowView = require('../views/ListRowView');
 var BorderedScrollView = require('../views/BorderedScrollView');
 
+var DecisionThreshold = 120;
+
 var FavoriteTrip = React.createClass({
+
   propTypes: {
     trip: React.PropTypes.object.isRequired,
     navigator: React.PropTypes.object.isRequired,
   },
 
-  getInitialState: function() {
+  getInitialState() {
     var pan = new Animated.ValueXY();
     pan.addListener(() => this.forceUpdate());
     return {
       renderHeight: null,
+      highlighted: false,
       pan
     };
   },
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
-
-      onResponderGrant: () => {
-        console.log('overall grant');
-      },
 
       onPanResponderGrant: (e, {dx, dy}) => {
         this.state.pan.setOffset({x: dx, y: dy});
         this.state.pan.setValue({x: 0, y: 0});
+
+        setTimeout(() => {
+          // tapping and not moving, so show the progress
+          if (this.state.pan.x.__getValue() === 0) {
+            this.setState({
+              highlighted: true,
+            });
+          }
+        }, 30);
       },
 
       onPanResponderMove: (e, {dx, dy}) => {
+        this.setState({
+          highlighted: false,
+        });
         this.state.pan.setValue({
-          x: dx,
-          y: dy,
+          x: Math.min(0, dx),
         });
       },
 
-      onPanResponderRelease: (e, {dx, vx, vy}) => {
-        console.log('released');
-        Animated.spring(this.state.pan, {
-          toValue: {x: 0, y: 0},
-          friction: 3,
-        }).start();
+      onPanResponderRelease: (e, {dx, dy, vx, vy}) => {
+        this.setState({
+          highlighted: false,
+        });
+
+        if (dx === 0 && dy === 0) {
+          // tap action, so go do that
+          var trip = this.props.trip;
+          TripActions.setFavoritesGuard(true);
+          TripActions.selectDeparture(trip.departureID);
+          TripActions.selectArrival(trip.arrivalID);
+          TripActions.setFavoritesGuard(false);
+          this.props.navigator.push(
+            Routes.getRouteForID(Routes.TIMES)
+          );
+          return;
+        }
+
+        if (Math.abs(dx) > DecisionThreshold) {
+          Animated.decay(this.state.pan.x, {
+            velocity: vx,
+            deceleration: 0.98,
+          }).start(() => {
+            var trip = this.props.trip;
+            TripActions.removeFavoriteTrip(
+              trip.departureID,
+              trip.arrivalID
+            );
+            LayoutAnimation.easeInEaseOut();
+            this._resetState();
+          });
+        } else {
+          Animated.spring(this.state.pan, {
+            toValue: {x: 0, y: 0},
+            friction: 3,
+          }).start();
+        }
       },
     });
+  },
+
+  _resetState() {
+    this.state.pan.setValue({x: 0, y: 0});
   },
 
   render: function() {
     var pan = this.state.pan;
     let [translateX] = [pan.x.__getValue()];
-    /*
-                TripActions.removeFavoriteTrip(
-                  trip.departureID,
-                  trip.arrivalID
-                  );*/
     let opacity = pan.x.interpolate(
       {inputRange: [-200, 0, 200], outputRange: [0.5, 1, 0.5]}
     ).__getValue();
@@ -97,6 +139,11 @@ var FavoriteTrip = React.createClass({
     }
     animatedStyle.transform = transforms;
 
+    var containerStyle = {};
+    if (this.state.highlighted) {
+      containerStyle.backgroundColor = Colors.LIOHUA;
+    }
+
     var trip = this.props.trip;
     return (
       <Animated.View
@@ -110,7 +157,7 @@ var FavoriteTrip = React.createClass({
         style={[styles.animatedContainer, animatedStyle]}
         {...this._panResponder.panHandlers}>
         <ListRowView nonText={true}>
-          <View style={styles.favContainer}>
+          <View style={[styles.favContainer, containerStyle]}>
             <Text style={styles.favText}>
               <Text style={styles.boldText}>
                 {Stations.getStationName(trip.departureID)}
