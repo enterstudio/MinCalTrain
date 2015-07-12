@@ -18,6 +18,8 @@ var Emoji = require('../constants/Emoji');
 var BackgroundCoverView = require('../views/BackgroundCoverView');
 var BackgroundCoverImageView = require('../views/BackgroundCoverImageView');
 
+var DECISION_THRESHOLD = 120;
+
 class AboutView extends Component {
 
   constructor(props) {

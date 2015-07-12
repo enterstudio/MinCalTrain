@@ -5,6 +5,8 @@ var {
   View,
   StyleSheet,
   TouchableHighlight,
+  PanResponder,
+  Animated,
 } = React;
 
 var Analytics = require('../util/Analytics');
@@ -20,6 +22,111 @@ var CallToActionRowView = require('../views/CallToActionRowView');
 var BackgroundCoverView = require('../views/BackgroundCoverView');
 var ListRowView = require('../views/ListRowView');
 var BorderedScrollView = require('../views/BorderedScrollView');
+
+var FavoriteTrip = React.createClass({
+  propTypes: {
+    trip: React.PropTypes.object.isRequired,
+    navigator: React.PropTypes.object.isRequired,
+  },
+
+  getInitialState: function() {
+    var pan = new Animated.ValueXY();
+    pan.addListener(() => this.forceUpdate());
+    return {
+      renderHeight: null,
+      pan
+    };
+  },
+
+  componentWillMount() {
+    this._panResponder = PanResponder.create({
+      onMoveShouldSetResponderCapture: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+
+      onResponderGrant: () => {
+        console.log('overall grant');
+      },
+
+      onPanResponderGrant: (e, {dx, dy}) => {
+        this.state.pan.setOffset({x: dx, y: dy});
+        this.state.pan.setValue({x: 0, y: 0});
+      },
+
+      onPanResponderMove: (e, {dx, dy}) => {
+        this.state.pan.setValue({
+          x: dx,
+          y: dy,
+        });
+      },
+
+      onPanResponderRelease: (e, {dx, vx, vy}) => {
+        console.log('released');
+        Animated.spring(this.state.pan, {
+          toValue: {x: 0, y: 0},
+          friction: 3,
+        }).start();
+      },
+    });
+  },
+
+  render: function() {
+    var pan = this.state.pan;
+    let [translateX] = [pan.x.__getValue()];
+    /*
+                TripActions.removeFavoriteTrip(
+                  trip.departureID,
+                  trip.arrivalID
+                  );*/
+    let opacity = pan.x.interpolate(
+      {inputRange: [-200, 0, 200], outputRange: [0.5, 1, 0.5]}
+    ).__getValue();
+    var transforms = [{translateX}];
+    var animatedStyle = {opacity};
+
+    if (this.state.renderHeight) {
+      var h = this.state.renderHeight;
+      let height = pan.x.interpolate(
+         {inputRange: [-300, 0, 300], outputRange: [0, h, 0]}
+      ).__getValue();
+      let scaleY = pan.x.interpolate(
+         {inputRange: [-300, 0, 300], outputRange: [0, 1, 0]}
+      ).__getValue();
+
+      animatedStyle.height = height;
+      transforms.push({scaleY});
+    }
+    animatedStyle.transform = transforms;
+
+    var trip = this.props.trip;
+    return (
+      <Animated.View
+        onLayout={(data) => {
+          if (this.state.renderHeight === null) {
+            this.setState({
+              renderHeight: data.nativeEvent.layout.height
+            });
+          }
+        }}
+        style={[styles.animatedContainer, animatedStyle]}
+        {...this._panResponder.panHandlers}>
+        <ListRowView nonText={true}>
+          <View style={styles.favContainer}>
+            <Text style={styles.favText}>
+              <Text style={styles.boldText}>
+                {Stations.getStationName(trip.departureID)}
+              </Text>
+              {' to '}
+              <Text style={styles.boldText}>
+                {Stations.getStationName(trip.arrivalID)}
+              </Text>
+            </Text>
+          </View>
+        </ListRowView>
+      </Animated.View>
+    );
+  }
+
+});
 
 var DepartureSelectView = React.createClass({
 
@@ -93,59 +200,26 @@ var DepartureSelectView = React.createClass({
   renderFavoriteTrip: function(trip) {
     var key = trip.departureID + trip.arrivalID;
     return (
-      <TouchableHighlight
+      <FavoriteTrip
+        trip={trip}
+        navigator={this.props.navigator}
         key={key}
-        onPress={() => {
-          TripActions.setFavoritesGuard(true);
-          TripActions.selectDeparture(trip.departureID);
-          TripActions.selectArrival(trip.arrivalID);
-          TripActions.setFavoritesGuard(false);
-          this.props.navigator.push(
-            Routes.getRouteForID(Routes.TIMES)
-          );
-        }}
-        underlayColor={Colors.LIOHUA}>
-        <View>
-          <ListRowView>
-            <Text style={styles.favText}>
-              <Text style={styles.boldText}>
-                {Stations.getStationName(trip.departureID)}
-              </Text>
-              {' to '}
-              <Text style={styles.boldText}>
-                {Stations.getStationName(trip.arrivalID)}
-              </Text>
-            </Text>
-          </ListRowView>
-          <View style={styles.xoutButton}>
-            <TouchableHighlight
-              underlayColor="#222"
-              onPress={() => {
-                TripActions.removeFavoriteTrip(
-                  trip.departureID,
-                  trip.arrivalID
-                );
-              }}>
-              <Text style={styles.crossMark}>
-                {Emoji.MINUS}
-              </Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </TouchableHighlight>
+      />
     );
   }
 
 });
 
 var styles = StyleSheet.create({
-  xoutButton: {
-    position: 'absolute',
-    top: 12,
-    right: 10,
-    opacity: 0.7
+  animatedContainer: {
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+  favContainer: {
+    padding: 16,
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   favText: {
+    color: '#EEE',
     fontSize: 14,
   },
   boldText: {
