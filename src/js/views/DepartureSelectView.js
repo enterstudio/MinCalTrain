@@ -23,7 +23,8 @@ var BackgroundCoverView = require('../views/BackgroundCoverView');
 var ListRowView = require('../views/ListRowView');
 var BorderedScrollView = require('../views/BorderedScrollView');
 
-var DecisionThreshold = 120;
+const DecisionThreshold = 120;
+const RightDistanceMax = 20;
 
 var FavoriteTrip = React.createClass({
 
@@ -63,9 +64,11 @@ var FavoriteTrip = React.createClass({
       },
 
       onPanResponderMove: (e, {dx, dy}) => {
-        this.setState({
-          highlighted: false,
-        });
+        if (dx < 0 || dx > RightDistanceMax) {
+          this.setState({
+            highlighted: false,
+          });
+        }
         this.state.pan.setValue({
           x: Math.min(0, dx),
         });
@@ -76,7 +79,8 @@ var FavoriteTrip = React.createClass({
           highlighted: false,
         });
 
-        if (dx === 0 && dy === 0) {
+        if ((dx === 0 && dy === 0) ||
+           (dx > 0 && dx < RightDistanceMax)) {
           // tap action, so go do that
           var trip = this.props.trip;
           TripActions.setFavoritesGuard(true);
@@ -87,9 +91,7 @@ var FavoriteTrip = React.createClass({
             Routes.getRouteForID(Routes.TIMES)
           );
           return;
-        }
-
-        if (Math.abs(dx) > DecisionThreshold) {
+        } else if (dx < -DecisionThreshold && dx < 0) {
           Animated.decay(this.state.pan.x, {
             velocity: vx,
             deceleration: 0.98,
