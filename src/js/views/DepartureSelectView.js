@@ -43,71 +43,45 @@ var FavoriteTrip = React.createClass({
   },
 
   componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
+    this._responder = PanOrTapResponder.create({
+      onPressIn: () => {
+        // Called after the ~30ms delay to make sure
+        // this gesture is not a pan but rather a tap.
+        this.setState({highlightUnderlay: true});
+      },
+
+      onPress: () => {
+        this.setState({highlightUnderlay: false});
+        this.navigateToFoo();
+      },
+
+      onPressOut: () => {
+        this.setState({highlightUnderlay: false});
+        // cancelled so do not navigate
+      },
 
       onPanResponderGrant: (e, {dx, dy}) => {
+        invariant(
+          this.state.highlightUnderlay === false,
+          'Cannot be called if press lifecycle is midway through',
+        );
+
         this.state.pan.setOffset({x: dx, y: dy});
         this.state.pan.setValue({x: 0, y: 0});
-
-        setTimeout(() => {
-          // tapping and not moving, so show the progress
-          if (this.state.pan.x.__getValue() === 0) {
-            this.setState({
-              highlighted: true,
-            });
-          }
-        }, 30);
       },
 
       onPanResponderMove: (e, {dx, dy}) => {
-        this.setState({
-          highlighted: false,
-        });
         this.state.pan.setValue({
           x: Math.min(0, dx),
         });
       },
 
       onPanResponderRelease: (e, {dx, dy, vx, vy}) => {
-        this.setState({
-          highlighted: false,
-        });
-
-        if (dx === 0 && dy === 0) {
-          // tap action, so go do that
-          var trip = this.props.trip;
-          TripActions.setFavoritesGuard(true);
-          TripActions.selectDeparture(trip.departureID);
-          TripActions.selectArrival(trip.arrivalID);
-          TripActions.setFavoritesGuard(false);
-          this.props.navigator.push(
-            Routes.getRouteForID(Routes.TIMES)
-          );
-          return;
-        }
-
-        if (Math.abs(dx) > DecisionThreshold) {
-          Animated.decay(this.state.pan.x, {
-            velocity: vx,
-            deceleration: 0.98,
-          }).start(() => {
-            var trip = this.props.trip;
-            TripActions.removeFavoriteTrip(
-              trip.departureID,
-              trip.arrivalID
-            );
-            LayoutAnimation.easeInEaseOut();
-            this._resetState();
-          });
-        } else {
-          Animated.spring(this.state.pan, {
-            toValue: {x: 0, y: 0},
-            friction: 3,
-          }).start();
-        }
+        // Fancy animation stuff.
+        Animated.decay(this.state.pan.x, {
+          velocity: vx,
+          deceleration: 0.98,
+        }).start();
       },
     });
   },
