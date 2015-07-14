@@ -75,12 +75,18 @@ var FavoriteTrip = React.createClass({
       },
 
       onPanResponderRelease: (e, {dx, dy, vx, vy}) => {
+        // Highlighted state keeps track of whether we were
+        // ever not a tap action.
+        var wasHighlighted = this.state.highlighted;
+
         this.setState({
           highlighted: false,
         });
 
-        if ((dx === 0 && dy === 0) ||
-           (dx > 0 && dx < RightDistanceMax)) {
+        var isTapAction = (dx === 0 && dy === 0) ||
+          (dx > 0 && dx < RightDistanceMax);
+
+        if (isTapAction && wasHighlighted) {
           // tap action, so go do that
           var trip = this.props.trip;
           TripActions.setFavoritesGuard(true);

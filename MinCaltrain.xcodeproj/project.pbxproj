@@ -644,7 +644,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = MinCaltrain;
+				PRODUCT_NAME = MinTrain;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -665,7 +665,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = MinCaltrain;
+				PRODUCT_NAME = MinTrain;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
