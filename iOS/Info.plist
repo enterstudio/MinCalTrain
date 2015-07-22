@@ -14,6 +14,21 @@
 	<string>MinTrain</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>FacebookAppID</key>
+	<string>559051657604755</string>
+	<key>FacebookDisplayName</key>
+	<string>MinTrain</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb559051657604755</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
