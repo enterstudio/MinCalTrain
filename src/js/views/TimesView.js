@@ -42,6 +42,7 @@ var TimesView = React.createClass({
     return (
       <View style={styles.metaContainer} key={key}>
         <BackgroundCoverView imageName="jun_seita">
+          <View style={styles.headerSpacer} />
           {this.renderImpl()}
         </BackgroundCoverView>
       </View>
@@ -242,6 +243,9 @@ var TimesView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  headerSpacer: {
+    height: 60,
+  },
   metaContainer: {
     flex: 1,
   },

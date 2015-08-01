@@ -26,6 +26,7 @@ var ArrivalSelectView = React.createClass({
   render: function() {
     return (
       <BackgroundCoverView imageName="brian_tobin">
+        <View style={styles.headerSpacer} />
         <View style={styles.departingContainer}>
           {this.renderDeparting()}
         </View>
@@ -62,6 +63,9 @@ var ArrivalSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  headerSpacer: {
+    height: 60,
+  },
   departingContainer: {
     backgroundColor: Colors.DEEPER,
     paddingTop: 12,

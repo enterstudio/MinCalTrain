@@ -11,6 +11,7 @@ var {
 } = React;
 
 var Colors = require('../constants/Colors');
+var Emoji = require('../constants/Emoji');
 var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
 var ArrivalSelectView = require('../views/ArrivalSelectView');
@@ -37,17 +38,6 @@ var MinCalTrain = React.createClass({
 
   componentWillMount: function() {
     this._navBarRouteMapper = {
-      shouldRenderForStack: function(routeState) {
-        if (routeState.routeStack.length !== 2) {
-          return true;
-        }
-        return routeState.routeStack[1].id !== Routes.ABOUT;
-      },
-
-      rightContentForRoute: function(route, navigator) {
-        return null;
-      },
-
       titleContentForRoute: function(route, navigator) {
         return null;
       },
@@ -57,7 +47,11 @@ var MinCalTrain = React.createClass({
           <TouchableOpacity onPress={() => {
               navigator.popToRoute(route);
             }}>
-            <View style={styles.crumbIconPlaceholder} />
+            <View style={styles.crumbIconPlaceholder}>
+              <Text style={styles.iconText}>
+                {Emoji.LOVE_HOTEL}
+              </Text>
+            </View>
           </TouchableOpacity>
         );
       },
@@ -93,8 +87,8 @@ var MinCalTrain = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  headerSpacer: {
-    height: 20,
+  iconText: {
+    fontSize: 25,
   },
   background: {
     backgroundColor: Colors.GREY,
@@ -105,7 +99,6 @@ var styles = StyleSheet.create({
   },
   crumbIconPlaceholder: {
     flex: 1,
-    backgroundColor: Colors.GREY,
   },
 });
 

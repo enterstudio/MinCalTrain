@@ -203,6 +203,7 @@ var DepartureSelectView = React.createClass({
       <BackgroundCoverView
         withAbout={true}
         imageName="smif">
+        <View style={styles.headerSpacer} />
         {this.renderFavoriteTrips()}
         <CallToActionRowView
           label="Departing from?">
@@ -266,6 +267,9 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  headerSpacer: {
+    height: 20
+  },
   animatedContainer: {
     backgroundColor: 'rgba(0,0,0,0)',
   },
