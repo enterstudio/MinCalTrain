@@ -6,6 +6,8 @@ var {
   Navigator,
   StyleSheet,
   View,
+  Text,
+  TouchableOpacity,
 } = React;
 
 var Colors = require('../constants/Colors');
@@ -33,6 +35,35 @@ var MinCalTrain = React.createClass({
     throw new Error('No route found for ' + route.id);
   },
 
+  componentWillMount: function() {
+    this._navBarRouteMapper = {
+      shouldRenderForStack: function(routeState) {
+        if (routeState.routeStack.length !== 2) {
+          return true;
+        }
+        return routeState.routeStack[1].id !== Routes.ABOUT;
+      },
+
+      rightContentForRoute: function(route, navigator) {
+        return null;
+      },
+
+      titleContentForRoute: function(route, navigator) {
+        return null;
+      },
+
+      iconForRoute: function(route, navigator) {
+        return (
+          <TouchableOpacity onPress={() => {
+              navigator.popToRoute(route);
+            }}>
+            <View style={styles.crumbIconPlaceholder} />
+          </TouchableOpacity>
+        );
+      },
+    };
+  },
+
   _configureScene: function(route) {
     switch (route.id) {
       case Routes.ABOUT:
@@ -44,11 +75,16 @@ var MinCalTrain = React.createClass({
   render: function() {
     return (
       <View style={styles.background}>
-        <View style={styles.headerSpacer} />
         <Navigator
           initialRoute={Routes.getRouteForID(INITIAL_ROUTE)}
           renderScene={this._renderScene}
           configureScene={this._configureScene}
+          navigationBar={
+            <Navigator.BreadcrumbNavigationBar
+              style={styles.navBar}
+              routeMapper={this._navBarRouteMapper}
+            />
+          }
         />
       </View>
     );
@@ -59,12 +95,18 @@ var MinCalTrain = React.createClass({
 var styles = StyleSheet.create({
   headerSpacer: {
     height: 20,
-    backgroundColor: Colors.SHE_DRESSED_ME,
   },
   background: {
     backgroundColor: Colors.GREY,
     flex: 1
-  }
+  },
+  navBar: {
+    backgroundColor: Colors.SHE_DRESSED_ME,
+  },
+  crumbIconPlaceholder: {
+    flex: 1,
+    backgroundColor: Colors.GREY,
+  },
 });
 
 AppRegistry.registerComponent('MinCalTrain', () => MinCalTrain);
