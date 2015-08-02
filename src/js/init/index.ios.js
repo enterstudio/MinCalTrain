@@ -15,6 +15,7 @@ var Emoji = require('../constants/Emoji');
 var Routes = require('../constants/Routes');
 var DepartureSelectView = require('../views/DepartureSelectView');
 var ArrivalSelectView = require('../views/ArrivalSelectView');
+var BreadcrumbNavigationBar = require('../views/BreadcrumbNavigationBar');
 var TimesView = require('../views/TimesView');
 var AboutView = require('../views/AboutView');
 
