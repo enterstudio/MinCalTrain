@@ -200,7 +200,8 @@ var DepartureSelectView = React.createClass({
         withAbout={true}
         imageName="smif">
         <View style={styles.headerSpacer} />
-        <ScrollView>
+        <View style={styles.topBorder} />
+        <ScrollView contentInset={{top: -20}} style={styles.scrollView}>
           {this.renderFavoriteTrips()}
           <CallToActionRowView
             label="Departing from?">
@@ -265,6 +266,14 @@ var DepartureSelectView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: Colors.GREY,
+  },
+  topBorder: {
+    height: 1,
+    backgroundColor: Colors.DEEPER,
+  },
   headerSpacer: {
     height: 20
   },
@@ -278,6 +287,7 @@ var styles = StyleSheet.create({
   favText: {
     color: '#EEE',
     fontSize: 20,
+    lineHeight: 20,
   },
   boldText: {
     fontWeight: 'bold',

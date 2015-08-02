@@ -208,21 +208,41 @@ var TimesView = React.createClass({
 
   getStyleForTrainDuration: function(route, routeTimes) {
     if (routeTimes.length === 1) {
-      // Only one time at all
+      // Only one time, so dont bother
       return null;
     }
 
     var routeTime = TimeTables.getMinutesForRoute(route);
-    switch (routeTimes.indexOf(routeTime)) {
-      case 0:
-        // fastest
-        return styles.fastestRoute;
+    var isBase = routeTimes.indexOf(routeTime) === routeTimes.length - 1;
+    if (isBase) {
+      // Dont bother highlighting the base
+      return null;
+    }
+
+    var howMuchBetter = routeTimes.length - routeTimes.indexOf(routeTime);
+    // We only have 4 colors though so cap against that.
+    howMuchBetter = Math.max(
+      howMuchBetter - Math.max(routeTimes.length - 4, 0),
+      0,
+    );
+    console.log(routeTimes, routeTime, howMuchBetter);
+    switch (howMuchBetter) {
+      case 4:
+        return {
+          backgroundColor: '#19bbd1'
+        };
+      case 3:
+        return {
+          backgroundColor: '#0090a3',
+        };
+      case 2:
+        return {
+          backgroundColor: '#006c7a',
+        };
       case 1:
-        if (routeTimes.length > 2) {
-          // second fastest only relevant if theres something
-          // slower
-          return styles.secondFastestRoute;
-        }
+        return {
+          backgroundColor: '#004851',
+        };
     }
     return null;
   },
@@ -251,12 +271,6 @@ var styles = StyleSheet.create({
   noStopsText: {
     backgroundColor: Colors.SHE_DRESSED_ME,
     padding: 12
-  },
-  fastestRoute: {
-    backgroundColor: Colors.SHE_DRESSED_ME,
-  },
-  secondFastestRoute: {
-    backgroundColor: Colors.DEEPER,
   },
   trainHeader: {
     fontSize: 10,
