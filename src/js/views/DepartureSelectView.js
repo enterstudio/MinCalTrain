@@ -167,13 +167,9 @@ var FavoriteTrip = React.createClass({
         <ListRowView nonText={true}>
           <View style={[styles.favContainer, containerStyle]}>
             <Text style={styles.favText}>
-              <Text style={styles.boldText}>
-                {Stations.getStationName(trip.departureID)}
-              </Text>
+              {Stations.getStationName(trip.departureID)}
               {' to '}
-              <Text style={styles.boldText}>
-                {Stations.getStationName(trip.arrivalID)}
-              </Text>
+              {Stations.getStationName(trip.arrivalID)}
             </Text>
           </View>
         </ListRowView>
@@ -204,28 +200,30 @@ var DepartureSelectView = React.createClass({
         withAbout={true}
         imageName="smif">
         <View style={styles.headerSpacer} />
-        {this.renderFavoriteTrips()}
-        <CallToActionRowView
-          label="Departing from?">
-          <EmojiRowEndView>
-            {Emoji.TRAIN}
-            {Emoji.RIGHT_ARROW}
-          </EmojiRowEndView>
-        </CallToActionRowView>
-        <StationSelectView
-          withAbout={true}
-          onAboutPress={
-            () => this.props.navigator.push(
-              Routes.getRouteForID(Routes.ABOUT)
-            )
-          }
-          onStationSelect={(stationID) => {
-            TripActions.selectDeparture(stationID);
-            this.props.navigator.push(
-              Routes.getRouteForID(Routes.SELECT_ARRIVAL)
-            );
-          }}
-        />
+        <ScrollView>
+          {this.renderFavoriteTrips()}
+          <CallToActionRowView
+            label="Departing from?">
+            <EmojiRowEndView>
+              {Emoji.TRAIN}
+            </EmojiRowEndView>
+          </CallToActionRowView>
+          <StationSelectView
+            withAbout={true}
+            justView={true}
+            onAboutPress={
+              () => this.props.navigator.push(
+                Routes.getRouteForID(Routes.ABOUT)
+              )
+            }
+            onStationSelect={(stationID) => {
+              TripActions.selectDeparture(stationID);
+              this.props.navigator.push(
+                Routes.getRouteForID(Routes.SELECT_ARRIVAL)
+              );
+            }}
+          />
+        </ScrollView>
       </BackgroundCoverView>
     );
   },
@@ -279,7 +277,7 @@ var styles = StyleSheet.create({
   },
   favText: {
     color: '#EEE',
-    fontSize: 14,
+    fontSize: 20,
   },
   boldText: {
     fontWeight: 'bold',

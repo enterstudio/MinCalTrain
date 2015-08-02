@@ -1,6 +1,7 @@
 var React = require('react-native');
 var {
   ScrollView,
+  View,
   StyleSheet,
 } = React;
 
@@ -8,7 +9,22 @@ var Colors = require('../constants/Colors');
 
 var BorderedScrollView = React.createClass({
 
+  propTypes: {
+    justView: React.PropTypes.bool,
+  },
+
   render: function() {
+    if (this.props.justView) {
+      return (
+        <View
+          style={[
+            styles.scrollView,
+            this.props.style
+          ]}>
+          {this.props.children}
+        </View>
+      );
+    }
     return (
       <ScrollView 
         automaticallyAdjustContentInsets={false}

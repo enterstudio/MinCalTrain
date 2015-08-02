@@ -20,6 +20,7 @@ var StationSelectView = React.createClass({
     onStationSelect: React.PropTypes.func.isRequired,
     omitStation: React.PropTypes.string,
     withAbout: React.PropTypes.bool,
+    justView: React.PropTypes.bool,
     onAboutPress: React.PropTypes.func,
   },
 
@@ -29,6 +30,7 @@ var StationSelectView = React.createClass({
     );
     return (
       <BorderedScrollView 
+        justView={this.props.justView}
         style={styles.container}>
         <View style={styles.stationContainer}>
           {todayStations.map(
