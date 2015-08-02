@@ -1,2 +1,1 @@
-Fix gestures with scroll view
 Build on other sizes

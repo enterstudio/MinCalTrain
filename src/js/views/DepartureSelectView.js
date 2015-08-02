@@ -49,6 +49,16 @@ var FavoriteTrip = React.createClass({
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
 
+      onPanResponderTerminate: (e, {dx, dy, vx, vy}) => {
+        Animated.spring(this.state.pan, {
+          toValue: {x: 0, y: 0},
+          friction: 3,
+        }).start();
+        this.setState({
+          highlighted: false,
+        });
+      },
+
       onPanResponderGrant: (e, {dx, dy}) => {
         this.state.pan.setOffset({x: dx, y: dy});
         this.state.pan.setValue({x: 0, y: 0});
