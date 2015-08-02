@@ -225,7 +225,6 @@ var TimesView = React.createClass({
       howMuchBetter - Math.max(routeTimes.length - 4, 0),
       0,
     );
-    console.log(routeTimes, routeTime, howMuchBetter);
     switch (howMuchBetter) {
       case 4:
         return {
