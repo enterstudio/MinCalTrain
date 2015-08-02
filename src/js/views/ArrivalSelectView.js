@@ -34,7 +34,6 @@ var ArrivalSelectView = React.createClass({
           label="Arriving to?">
           <EmojiRowEndView>
             {Emoji.LOVE_HOTEL}
-            {Emoji.END}
           </EmojiRowEndView>
         </CallToActionRowView>
         <StationSelectView

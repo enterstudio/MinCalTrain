@@ -39,7 +39,7 @@ var navStatePresentedIndex = function(navState) {
 };
 
 var STARTING_HEIGHT = 20;
-var EXPANDED_HEIGHT = 40;
+var EXPANDED_HEIGHT = 44;
 
 /**
  * The first route is initially rendered using a different style than all
@@ -103,7 +103,6 @@ var BreadcrumbNavigationBar = React.createClass({
 
     if (interpolate.Crumb(CRUMB_PROPS[index].style, amount)) {
       this.refs['crumb_' + index].setNativeProps(CRUMB_PROPS[index]);
-      console.log(CRUMB_PROPS[index]);
     }
     if (interpolate.Icon(ICON_PROPS[index].style, amount)) {
       this.refs['icon_' + index].setNativeProps(ICON_PROPS[index]);
@@ -125,14 +124,25 @@ var BreadcrumbNavigationBar = React.createClass({
       this._updateIndexProgress(progress, index, fromIndex, toIndex);
     }
 
-    // animate height for meta bar
+    // animate height for meta bar, but only if its not the about view
+    var foundAbout = this.props.navState && this.props.navState.routeStack.filter(
+      route => route.id === 'ABOUT'
+    ).length > 0;
     if (fromIndex == 0 || toIndex == 0) {
       var amount = toIndex > fromIndex ? progress : (1 - progress);
-      this.refs['container'].setNativeProps({
-        style: {
-          height: STARTING_HEIGHT + amount * EXPANDED_HEIGHT,
-        }
-      });
+      if (foundAbout) {
+        this.refs['container'].setNativeProps({
+          style: {
+            opacity: 1 - amount,
+          }
+        });
+      } else {
+        this.refs['container'].setNativeProps({
+          style: {
+            height: STARTING_HEIGHT + amount * EXPANDED_HEIGHT,
+          }
+        });
+      }
     }
   },
 

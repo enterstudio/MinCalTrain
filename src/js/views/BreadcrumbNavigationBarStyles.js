@@ -14,14 +14,14 @@ var merge = require('../util/merge.js');
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var NAV_BAR_HEIGHT = 30;
 
-var SPACING = 4;
+var SPACING = 12;
 var ICON_WIDTH = 30;
-var SEPARATOR_WIDTH = 9;
+var SEPARATOR_WIDTH = 20;
 var CRUMB_WIDTH = ICON_WIDTH + SEPARATOR_WIDTH;
 var STATUS_BAR_HEIGHT = 20;
 
 var OPACITY_RATIO = 100;
-var ICON_INACTIVE_OPACITY = 0.6;
+var ICON_INACTIVE_OPACITY = 0.3;
 var MAX_BREADCRUMBS = 10;
 
 var CRUMB_BASE = {

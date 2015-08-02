@@ -44,13 +44,29 @@ var MinCalTrain = React.createClass({
       },
 
       iconForRoute: function(route, navigator) {
+        var emoji = null;
+        switch (route.id) {
+          case Routes.SELECT_DEPARTURE:
+            emoji = Emoji.RIGHT_ARROW;
+            break;
+          case Routes.SELECT_ARRIVAL:
+            emoji = Emoji.END;
+            break;
+          case Routes.TIMES:
+            emoji = Emoji.STATION;
+            break;
+        }
+        if (!emoji) {
+          return null;
+        }
+
         return (
           <TouchableOpacity onPress={() => {
               navigator.popToRoute(route);
             }}>
             <View style={styles.crumbIconPlaceholder}>
               <Text style={styles.iconText}>
-                {Emoji.LOVE_HOTEL}
+                {emoji}
               </Text>
             </View>
           </TouchableOpacity>
@@ -75,7 +91,7 @@ var MinCalTrain = React.createClass({
           renderScene={this._renderScene}
           configureScene={this._configureScene}
           navigationBar={
-            <Navigator.BreadcrumbNavigationBar
+            <BreadcrumbNavigationBar
               style={styles.navBar}
               routeMapper={this._navBarRouteMapper}
             />
@@ -89,7 +105,7 @@ var MinCalTrain = React.createClass({
 
 var styles = StyleSheet.create({
   iconText: {
-    fontSize: 25,
+    fontSize: 30,
   },
   background: {
     backgroundColor: Colors.GREY,

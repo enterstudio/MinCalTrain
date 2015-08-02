@@ -109,7 +109,6 @@ var TimesView = React.createClass({
           label="Have fun on your trip!">
           <EmojiRowEndView>
             {Emoji.HORIZONTAL_TRAFFIC_LIGHT}
-            {Emoji.STATION}
           </EmojiRowEndView>
         </CallToActionRowView>
         {this.renderHeader(routeTimes)}
