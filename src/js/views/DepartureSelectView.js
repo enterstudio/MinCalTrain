@@ -35,7 +35,9 @@ var FavoriteTrip = React.createClass({
 
   getInitialState() {
     var pan = new Animated.ValueXY();
-    pan.addListener(() => this.forceUpdate());
+    pan.addListener(() => {
+      this.isMounted() && this.forceUpdate();
+    });
     return {
       renderHeight: null,
       highlighted: false,
@@ -196,12 +198,15 @@ var DepartureSelectView = React.createClass({
   },
 
   componentDidMount: function() {
-    TripStore.subscribe(() => this.forceUpdate());
+    this._storeCB = () => {
+      this.isMounted() && this.forceUpdate();
+    };
+    TripStore.subscribe(this._storeCB);
     Analytics.logOpen();
   },
 
   componentDidUnmount: function() {
-    TripStore.unsubscribe(() => this.forceUpdate());
+    TripStore.unsubscribe(this._storeCB);
   },
 
   render: function() {
