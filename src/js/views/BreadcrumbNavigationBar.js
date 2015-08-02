@@ -134,6 +134,7 @@ var BreadcrumbNavigationBar = React.createClass({
         this.refs['container'].setNativeProps({
           style: {
             opacity: 1 - amount,
+            height: 20 * (1 - amount),
           }
         });
       } else {
