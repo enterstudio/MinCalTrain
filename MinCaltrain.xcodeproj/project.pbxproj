@@ -25,6 +25,9 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		D84A2F621B46EE70006D58D3 /* LaunchImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84A2F611B46EE70006D58D3 /* LaunchImage.xcassets */; };
+		D8759D1E1BA73FE3003863A8 /* AppHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8759D1D1BA73FE3003863A8 /* AppHub.framework */; };
+		D8759D2B1BA74052003863A8 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8759D2A1BA74052003863A8 /* libz.dylib */; };
+		D8759D2D1BA7405C003863A8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8759D2C1BA7405C003863A8 /* SystemConfiguration.framework */; };
 		D89383251B601E46004CDC86 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D89383241B601E46004CDC86 /* FBSDKCoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +142,9 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		D84A2F611B46EE70006D58D3 /* LaunchImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = LaunchImage.xcassets; path = MinCaltrain/LaunchImage.xcassets; sourceTree = "<group>"; };
+		D8759D1D1BA73FE3003863A8 /* AppHub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppHub.framework; sourceTree = "<group>"; };
+		D8759D2A1BA74052003863A8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D8759D2C1BA7405C003863A8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D89383241B601E46004CDC86 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +160,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8759D2D1BA7405C003863A8 /* SystemConfiguration.framework in Frameworks */,
+				D8759D2B1BA74052003863A8 /* libz.dylib in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				D89383251B601E46004CDC86 /* FBSDKCoreKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -161,6 +169,7 @@
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				D8759D1E1BA73FE3003863A8 /* AppHub.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -288,6 +297,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D8759D1C1BA73FE3003863A8 /* AppHub */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302AF1ABCB8E700DB3ED1 /* RCTAdSupport.xcodeproj */,
@@ -314,6 +324,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D8759D2C1BA7405C003863A8 /* SystemConfiguration.framework */,
+				D8759D2A1BA74052003863A8 /* libz.dylib */,
 				13B07FAE1A68108700A75B9A /* MinCaltrain */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MinCaltrainTests */,
@@ -330,6 +342,14 @@
 				00E356EE1AD99517003FC87E /* MinCaltrainTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D8759D1C1BA73FE3003863A8 /* AppHub */ = {
+			isa = PBXGroup;
+			children = (
+				D8759D1D1BA73FE3003863A8 /* AppHub.framework */,
+			);
+			path = AppHub;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -642,6 +662,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/AppHub",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,6 +688,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/AppHub",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
