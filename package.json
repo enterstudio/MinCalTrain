@@ -22,6 +22,7 @@
     "moment": "^2.10.3",
     "object-assign": "^2.0.0",
     "react-native": "https://github.com/facebook/react-native/archive/v0.8.0.tar.gz",
-    "react-native-google-analytics": "0.0.2"
+    "react-native-google-analytics": "0.0.2",
+    "react-native-sqlite": "0.0.12"
   }
 }

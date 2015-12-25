@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-  [AppHub setApplicationID:@"a42NCCaCs5cAHzqgoWEo"];
+//  [AppHub setApplicationID:@"a42NCCaCs5cAHzqgoWEo"];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -34,7 +34,7 @@
    * on the same Wi-Fi network.
    */
 
-  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/js/init/index.ios.bundle"];
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/src/js/init/index.ios.bundle"];
 
   /**
    * OPTION 2
@@ -58,10 +58,10 @@
    *
    * $ react-native bundle --minify
    */
-  
+  /*
   AHBuild *build = [[AppHub buildManager] currentBuild];
   jsCodeLocation = [build.bundle URLForResource:@"main"
-                                  withExtension:@"jsbundle"];
+                                  withExtension:@"jsbundle"];*/
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"MinCalTrain"
