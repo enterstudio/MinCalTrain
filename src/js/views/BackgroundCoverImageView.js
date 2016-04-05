@@ -8,25 +8,25 @@ var {
 
 var IMAGES = {
   'smif': {
-    source: require('image!smif'),
+    source: require('../../img/smif.png'),
     attribution: 'Flickr user @smif '
   },
   'brian_tobin': {
-    source: require('image!brian_tobin'),
+    source: require('../../img/brian_tobin.png'),
     attribution: 'Brian Tobin',
     style: {
       color: '#CCC'
     },
   },
   'jun_seita': {
-    source: require('image!jun_seita'),
+    source: require('../../img/jun_seita.png'),
     attribution: 'Jun Seita',
     style: {
       color: '#555'
     },
   },
   'singapore': {
-    source: require('image!singapore'),
+    source: require('../../img/singapore.png'),
     attribution: 'Peter Cottle',
     style: {
       color: '#DDD'
