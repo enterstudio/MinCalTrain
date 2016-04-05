@@ -1,60 +1,34 @@
-# NPM
-npm-debug.log
-node_modules/
-
-# Build artifacts and asset stuff
-build/*
-build/bundle.js
-build/bundle.*.js
-build/main.*.css
-screens
-FontAwesome-Vectors.pdf
-iOS/main.jsbundle
-
-# Vim swaps
-*.sw*
-
-# Annoying mac stuff
-.DS_STORE
-
-# Casper stuff
-src/__tests__/casperjs/screenshots/*.png
-src/__tests__/casperjs/*.js-e
+# OSX
+#
+.DS_Store
 
 # Xcode
-*.xcuserstate
-*.xcworkspace
-xcuserdata
-UserInterfaceState.xcuserstate
-xcuserdata/
-
+#
+build/
 *.pbxuser
-*.perspective
-*.perspectivev3
-
+!default.pbxuser
 *.mode1v3
+!default.mode1v3
 *.mode2v3
-
-*.xcodeproj/xcuserdata/*.xcuserdatad
-
-*.xccheckout
-*.xcuserdatad
-
-*.pyc
-
-.User.xcconfig
-
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 xcuserdata
-Tools/xctool/build
-Tools/clang/analyzer/build
-Tools/clang/libtooling/build
-Tools/clang/clang-ocaml/build
-Tools/clang/xcode
-VendorLib/Breakpad/src/tools/mac/dump_syms/build
+*.xccheckout
+*.moved-aside
 DerivedData
-VendorLib/clang/lib/arc
-VendorLib/clang/lib/c++
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
 
-*.swp
+# Android/IJ
+#
+.idea
+.gradle
+local.properties
 
-
+# node.js
+#
+node_modules/
+npm-debug.log

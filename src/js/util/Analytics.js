@@ -1,3 +1,4 @@
+/*
 var {
   Tracking: GATracking,
   Hits: GAHits,
@@ -44,7 +45,7 @@ function _sendScreenView(screenName) {
     'MinCalTrain',
     APP_VERSION,
     APP_KEY,
-    /* installer id */ 1,
+    1, // installer ID
     screenName,
   );
   _sendHit(screenView);
@@ -67,15 +68,15 @@ function _logScreenView(screenName) {
     _pending.push(screenName);
   }
 }
-
+*/
 var Analytics = {
 
   logOpen: function() {
-    _logScreenView('open');
+    //_logScreenView('open');
   },
 
   logChoseTrip: function() {
-    _logScreenView('timefucntions_view');
+    //_logScreenView('timefucntions_view');
   },
   
 };

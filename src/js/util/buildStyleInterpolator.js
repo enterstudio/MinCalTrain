@@ -1,7 +1,6 @@
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  *
- * @providesModule buildStyleInterpolator
  */
 
 /**
@@ -9,7 +8,7 @@
  */
 /* eslint-disable global-strict */
 
-var keyOf = require('keyOf');
+var keyOf = require('./keyOf');
 
 var X_DIM = keyOf({x: null});
 var Y_DIM = keyOf({y: null});

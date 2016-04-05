@@ -191,7 +191,8 @@ var BreadcrumbNavigationBar = React.createClass({
   },
 
   _renderOrReturnBreadcrumb: function(route, index) {
-    var uid = this.props.navState.idStack[index];
+    console.log(this.props.navState);
+    var uid = this.props.navState.routeStack[index].id;
     var navBarRouteMapper = this.props.routeMapper;
     var navOps = this.props.navigator;
     var alreadyRendered = this.refs['crumbContainer' + uid];
@@ -222,7 +223,7 @@ var BreadcrumbNavigationBar = React.createClass({
 
   _renderOrReturnTitle: function(route, index) {
     var navState = this.props.navState;
-    var uid = navState.idStack[index];
+    var uid = navState.routeStack[index].id;
     var alreadyRendered = this.refs['titleContainer' + uid];
     if (alreadyRendered) {
       // Don't bother re-calculating the children
