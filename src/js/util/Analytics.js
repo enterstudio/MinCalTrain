@@ -1,4 +1,3 @@
-/*
 var {
   Tracking: GATracking,
   Hits: GAHits,
@@ -68,15 +67,15 @@ function _logScreenView(screenName) {
     _pending.push(screenName);
   }
 }
-*/
+
 var Analytics = {
 
   logOpen: function() {
-    //_logScreenView('open');
+    _logScreenView('open');
   },
 
   logChoseTrip: function() {
-    //_logScreenView('timefucntions_view');
+    _logScreenView('timefucntions_view');
   },
   
 };

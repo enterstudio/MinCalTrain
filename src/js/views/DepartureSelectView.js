@@ -205,7 +205,7 @@ var DepartureSelectView = React.createClass({
     Analytics.logOpen();
   },
 
-  componentDidUnmount: function() {
+  componentWillUnmount: function() {
     TripStore.unsubscribe(this._storeCB);
   },
 
@@ -216,7 +216,7 @@ var DepartureSelectView = React.createClass({
         imageName="smif">
         <View style={styles.headerSpacer} />
         <View style={styles.topBorder} />
-        <ScrollView contentInset={{top: -20}} style={styles.scrollView}>
+        <ScrollView style={styles.scrollView}>
           {this.renderFavoriteTrips()}
           <CallToActionRowView
             label="Departing from?">
