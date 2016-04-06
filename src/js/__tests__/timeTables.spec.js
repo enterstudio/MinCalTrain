@@ -178,20 +178,20 @@ describe('time tables', function() {
 
     expect(routes.length).toBe(29);
     expect(routes[0].timeLeaving.getTime())
-      .toEqual(Date.parse('Mon Jun 08 2015 09:46:00 GMT-0700 (PDT)'));
+      .toEqual(Date.parse('Mon Jun 08 2015 09:49:00 GMT-0700 (PDT)'));
     expect(routes[0].timeLeaving.toString())
-      .toEqual('Mon Jun 08 2015 09:46:00 GMT-0700 (PDT)');
+      .toEqual('Mon Jun 08 2015 09:49:00 GMT-0700 (PDT)');
 
     expect(routes[0].timeArriving.toString())
-      .toEqual('Mon Jun 08 2015 10:48:00 GMT-0700 (PDT)');
+      .toEqual('Mon Jun 08 2015 10:50:00 GMT-0700 (PDT)');
 
     lastTrip = routes[routes.length - 1];
     expect(lastTrip.timeLeaving.toString())
-      .toEqual('Mon Jun 08 2015 23:01:00 GMT-0700 (PDT)');
+      .toEqual('Mon Jun 08 2015 23:04:00 GMT-0700 (PDT)');
     // note that this respects midnight and the next day.
     // It also converts the 12:xxam to 00:xxam
     expect(lastTrip.timeArriving.toString())
-      .toEqual('Tue Jun 09 2015 00:03:00 GMT-0700 (PDT)');
+      .toEqual('Tue Jun 09 2015 00:04:00 GMT-0700 (PDT)');
   });
 
   it('can calculate minutes length for routes', function() {
@@ -204,8 +204,8 @@ describe('time tables', function() {
 
     expect(routes.length).toBe(29);
     var firstRoute = routes[0];
-    expect(TimeTables.getMinutesForRoute(firstRoute)).toBe(62);
-    expect(TimeTables.getMinutesForRoute(routes[7])).toBe(53);
+    expect(TimeTables.getMinutesForRoute(firstRoute)).toBe(61);
+    expect(TimeTables.getMinutesForRoute(routes[7])).toBe(52);
 
     expect(
       function() {
@@ -224,9 +224,9 @@ describe('time tables', function() {
 
     expect(routes.length).toBe(29);
     var routeTimes = TimeTables.getSortedRouteTimes(routes);
-    expect(routeTimes[0]).toBe(40);
-    expect(routeTimes[1]).toBe(41);
-    expect(routeTimes[routeTimes.length - 1]).toBe(67);
+    expect(routeTimes[0]).toBe(41);
+    expect(routeTimes[1]).toBe(43);
+    expect(routeTimes[routeTimes.length - 1]).toBe(64);
   });
 
   it('can clone routes to previous day', function() {
