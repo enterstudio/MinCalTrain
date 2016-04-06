@@ -41,10 +41,18 @@ var _stopLoop = function(callback) {
 
 describe('time tables', function() {
   it('each has an ID and type', function() {
-    _trainLoop(function(train) {
+    _trainLoop(function(train, scheduleKey) {
 
       expect(train.id)
         .toBeTruthy();
+      // Southbound trains are evenly numbered
+      expect(train.id % 2)
+        .toBe(
+          scheduleKey.indexOf('South') !== -1 ?
+            0 :
+            1
+        );
+
       expect(train.type)
         .toBeTruthy();
       expect(TrainTypes[train.type])
