@@ -434,35 +434,6 @@ var TIMES = [{
     '22nd-street': '10:30pm',
     'san-francisco': '10:38pm',
   }
-}, {
-
-  id: 451,
-  stops: {
-    'san-jose': '10:30pm',
-    'santa-clara': '10:35pm',
-    'lawrence': '10:40pm',
-    'sunnyvale': '10:44pm',
-    'mountain-view': '10:49pm',
-    'san-antonio': '10:53pm',
-    'california-ave': '10:57pm',
-    'palo-alto': '11:01pm',
-    'menlo-park': '11:04pm',
-    'atherton': '11:07pm',
-    'redwood-city': '11:11pm',
-    'san-carlos': '11:15pm',
-    'belmont': '11:18pm',
-    'hillsdale': '11:21pm',
-    'hayward-park': '11:24pm',
-    'san-mateo': '11:27pm',
-    'burlingame': '11:32pm',
-    'broadway': '11:35pm',
-    'millbrae': '11:40pm',
-    'san-bruno': '11:44pm',
-    'so-san-francisco': '11:49pm',
-    'bayshore': '11:55pm',
-    '22nd-street': '+12:00am',
-    'san-francisco': '+12:08am',
-  }
 
 }];
 
