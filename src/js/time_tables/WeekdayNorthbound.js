@@ -967,7 +967,7 @@ var TIMES = [{
     'bayshore': '11:52pm',
     '22nd-street': '11:57pm',
     'san-francisco': '+12:04am',
-  }
+  },
 
 }];
 
