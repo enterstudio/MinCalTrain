@@ -22,7 +22,7 @@
     "moment": "^2.10.3",
     "object-assign": "^2.0.0",
     "react": "^0.14.8",
-    "react-native": "0.22.2",
+    "react-native": "0.46.0",
     "react-native-google-analytics": "0.0.2"
   }
 }
