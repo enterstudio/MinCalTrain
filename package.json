@@ -21,8 +21,8 @@
     "flux": "^2.0.1",
     "moment": "^2.10.3",
     "object-assign": "^2.0.0",
-    "react": "^0.14.8",
-    "react-native": "0.22.2",
+    "react": "^15.0.0",
+    "react-native": "0.39.1",
     "react-native-google-analytics": "0.0.2"
   }
 }
